@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce.multivendor;
+package com.mygitgor.ecommerce_multivendor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

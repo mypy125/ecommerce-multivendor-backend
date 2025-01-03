@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce.multivendor;
+package com.mygitgor.ecommerce_multivendor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
