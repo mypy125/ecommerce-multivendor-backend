@@ -6,6 +6,13 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ---
 
+- **Location:** Yerevan  
+- **Date:** 01/2025
+
+- **Developer:**  
+- Web Development in Java  
+- **Name:** Gagikovich Gor Mkhitaryan
+
 ## Technology Stack (Backend)
 
 ### 🛠️ Core Technologies
@@ -125,7 +132,7 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://www.linkedin.com/in/gor-mk/) file for more details.
 
 ---
 
