@@ -132,7 +132,7 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ## License
 
-This project is licensed under the terms of the GNU General Public License v3.0. See the [LICENSE](https://github.com/mypy125/ecommerce-multivendor-backend/blob/main/LICENSE) file for more details.
+This project is licensed under the terms of the GNU General Public License v3.0. See the [LICENSE](https://github.com/mypy125/ecommerce-multivendor-backend/blob/main/LICENSE.txt) file for more details.
 
 ---
 
