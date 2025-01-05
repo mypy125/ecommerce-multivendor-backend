@@ -1,7 +1,11 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.HashSet;
@@ -23,8 +27,11 @@ public class User extends BaseEntity<Long>{
 
     private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
 
+    @OneToMany
     private Set<Address> addresses = new HashSet<>();
 
+    @ManyToMany
+    @JsonIgnore
     private Set<Coupon> usedCoupons = new HashSet<>();
 
 

@@ -1,5 +1,5 @@
 GNU GENERAL PUBLIC LICENSE
-Version 3, 29 июня 2007 года
+Version 3, 29 jun 2007 year
 
 Copyright (c) [2025] [Gagikovich Gor Mkhitaryan]
 All rights reserved.
