@@ -1,7 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Coupon extends BaseEntity<Long>{
+
     private String code;
     private double discountPercentage;
     private LocalDate validityStartDate;

@@ -1,6 +1,9 @@
+server:
+  port: 8080
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerce
+    url: jdbc:postgresql://localhost:5432/commerce
     username: root
     password: root
     driver-class-name: org.postgresql.Driver
@@ -11,12 +14,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate.format_sql: true
         show-sql: true
 
-server:
-  port: 8080
-
+logging:
+  level:
+    org.springframework.boot.context.properties: DEBUG
