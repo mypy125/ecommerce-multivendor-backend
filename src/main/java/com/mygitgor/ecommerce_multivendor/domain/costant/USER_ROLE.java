@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce_multivendor.domain;
+package com.mygitgor.ecommerce_multivendor.domain.costant;
 
 public enum USER_ROLE {
     ROLE_ADMIN,
