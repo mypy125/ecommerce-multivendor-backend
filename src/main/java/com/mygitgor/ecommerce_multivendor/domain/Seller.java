@@ -1,6 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BasePerson;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.domain.details.BankDetails;
@@ -14,13 +15,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Seller extends BaseEntity<Long>{
+public class Seller extends BasePerson {
     private String sellerName;
-    private String mobile;
-
-    @Column(unique = true, nullable = false)
-    private String email;
-    private String password;
 
     @Embedded
     private BusinessDetails businessDetails = new BusinessDetails();
@@ -33,10 +29,13 @@ public class Seller extends BaseEntity<Long>{
 
     private String GSTIN;
 
-    private USER_ROLE role = USER_ROLE.ROLE_SELLER;
-
     private boolean isEmailVerified = false;
 
     private AccountStatus accountStatus = AccountStatus.PENDING_VERIFICATION;
+
+    @PrePersist
+    public void prePersist() {
+        this.setRole(USER_ROLE.ROLE_SELLER);
+    }
 
 }

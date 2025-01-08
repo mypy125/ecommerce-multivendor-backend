@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Coupon extends BaseEntity<Long>{
+public class Coupon extends BaseEntity {
 
     private String code;
     private double discountPercentage;

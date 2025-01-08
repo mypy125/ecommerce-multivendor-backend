@@ -1,6 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.OrderStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentStatus;
 import com.mygitgor.ecommerce_multivendor.domain.details.PaymentDetails;
@@ -18,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "orders")
-public class Order extends BaseEntity<Long> {
+public class Order extends BaseEntity {
 
     private String orderId;
 

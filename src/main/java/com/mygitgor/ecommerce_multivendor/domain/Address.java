@@ -1,9 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
@@ -12,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Address extends BaseEntity<Long>{
+public class Address extends BaseEntity {
     private String name;
     private String locality;
     private String address;

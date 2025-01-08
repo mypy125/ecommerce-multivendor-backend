@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BasePerson;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,15 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "users")
-public class User extends BaseEntity<Long>{
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
-
-    private String email;
+public class User extends BasePerson {
     private String fullName;
-    private String mobile;
-
-    private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
 
     @OneToMany
     private Set<Address> addresses = new HashSet<>();
@@ -32,5 +25,10 @@ public class User extends BaseEntity<Long>{
     @ManyToMany
     @JsonIgnore
     private Set<Coupon> usedCoupons = new HashSet<>();
+
+    @PrePersist
+    public void prePersist() {
+        this.setRole(USER_ROLE.ROLE_CUSTOMER);
+    }
 
 }

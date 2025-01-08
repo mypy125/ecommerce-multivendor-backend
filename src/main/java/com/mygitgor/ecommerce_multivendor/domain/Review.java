@@ -2,11 +2,11 @@ package com.mygitgor.ecommerce_multivendor.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Review extends BaseEntity<Long>{
+public class Review extends BaseEntity {
 
     @Column(nullable = false)
     private String reviewText;

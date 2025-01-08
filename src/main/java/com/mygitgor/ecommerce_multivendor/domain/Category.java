@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Category extends BaseEntity<Long>{
+public class Category extends BaseEntity {
     private String name;
 
     @Column(unique = true)

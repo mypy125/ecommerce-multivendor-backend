@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.HomeCategorySection;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class HomeCategory extends BaseEntity<Long> {
+public class HomeCategory extends BaseEntity {
     private String name;
     private String image;
     private String categoryId;

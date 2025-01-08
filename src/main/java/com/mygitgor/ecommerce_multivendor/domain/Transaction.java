@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Transaction extends BaseEntity<Long> {
+public class Transaction extends BaseEntity {
 
     @ManyToOne
     private User customer;

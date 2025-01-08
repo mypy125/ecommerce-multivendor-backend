@@ -1,6 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class CartItem extends BaseEntity<Long>{
+public class CartItem extends BaseEntity {
 
     @ManyToOne
     @JsonIgnore

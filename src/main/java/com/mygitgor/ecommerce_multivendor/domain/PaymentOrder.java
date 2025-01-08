@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentMethod;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentOrderStatus;
 import jakarta.persistence.Entity;
@@ -16,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class PaymentOrder extends BaseEntity<Long>{
+public class PaymentOrder extends BaseEntity {
     private Long amount;
 
     private PaymentOrderStatus status = PaymentOrderStatus.PENDING;
