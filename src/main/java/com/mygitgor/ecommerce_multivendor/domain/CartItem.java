@@ -16,6 +16,7 @@ public class CartItem extends BaseEntity<Long>{
     @JsonIgnore
     private Cart cart;
 
+    @OneToOne
     private Product product;
 
     private String size;

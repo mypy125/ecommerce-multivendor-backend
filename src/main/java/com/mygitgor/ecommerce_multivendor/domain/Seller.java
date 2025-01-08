@@ -20,7 +20,6 @@ public class Seller extends BaseEntity<Long>{
 
     @Column(unique = true, nullable = false)
     private String email;
-
     private String password;
 
     @Embedded

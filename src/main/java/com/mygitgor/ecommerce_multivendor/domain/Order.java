@@ -17,12 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@Table(name = "orders")
 public class Order extends BaseEntity<Long> {
+
     private String orderId;
 
     @ManyToOne
     private User user;
-
     private Long sellerId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -35,9 +36,7 @@ public class Order extends BaseEntity<Long> {
     private PaymentDetails paymentDetails = new PaymentDetails();
 
     private double totalMrpPrice;
-
     private Integer totalSellingPrice;
-
     private Integer discount;
 
     private OrderStatus orderStatus;
@@ -47,7 +46,6 @@ public class Order extends BaseEntity<Long> {
     private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
     private LocalDateTime orderDate = LocalDateTime.now();
-
     private LocalDateTime deliverDate = orderDate.plusDays(7);
 
 }
