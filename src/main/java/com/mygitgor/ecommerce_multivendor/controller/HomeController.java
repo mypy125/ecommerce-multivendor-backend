@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
-import com.mygitgor.ecommerce_multivendor.response.ApiResponse;
+import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce_multivendor.response;
+package com.mygitgor.ecommerce_multivendor.controller.DTOs.response;
 
 import lombok.Data;
 import lombok.Setter;
