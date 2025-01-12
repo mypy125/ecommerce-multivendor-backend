@@ -1,8 +1,11 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
+import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
 import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.repository.UserRepository;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.SignupRequest;
+import com.mygitgor.ecommerce_multivendor.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthController {
 
-    private final UserRepository userRepository;
+    private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<User>createUserHandler(@RequestBody SignupRequest request){
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setFullName(request.getFullName());
+    public ResponseEntity<AuthResponse>createUserHandler(@RequestBody SignupRequest req){
+        String jwt = authService.createUser(req);
 
-        User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+        AuthResponse res = new AuthResponse();
+        res.setJwt(jwt);
+        res.setMessage("register success");
+        res.setRole(USER_ROLE.ROLE_CUSTOMER);
+
+        return ResponseEntity.ok(res);
     }
 }

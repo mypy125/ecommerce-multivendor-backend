@@ -1,4 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.service;
 
-public class AuthService {
+import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.SignupRequest;
+
+public interface AuthService {
+    String createUser(SignupRequest request);
 }
