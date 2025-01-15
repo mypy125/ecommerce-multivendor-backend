@@ -44,25 +44,22 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String createUser(SignupRequest req) throws Exception {
         VerificationCode verificationCode = verificationCodeRepository.findByEmail(req.getEmail());
-
         if(verificationCode == null || !verificationCode.getOtp().equals(req.getOtp())){
             throw new Exception("wrong otp...");
         }
 
         User user = userRepository.findByEmail(req.getEmail());
-
         if(user==null){
             User createUser = new User();
             createUser.setEmail(req.getEmail());
             createUser.setFullName(req.getFullName());
             createUser.setRole(USER_ROLE.ROLE_CUSTOMER);
-            createUser.setMobile("37444082124");
+            createUser.setMobile("37444******");
             createUser.setPassword(passwordEncoder.encode(req.getOtp()));
             user = userRepository.save(createUser);
 
             Cart cart = new Cart();
             cart.setUser(user);
-
             cartRepository.save(cart);
         }
         List<GrantedAuthority> authority = new ArrayList<>();
@@ -86,7 +83,6 @@ public class AuthServiceImpl implements AuthService {
                 throw new Exception("user not exist with provided email");
             }
         }
-
         VerificationCode isExist= verificationCodeRepository.findByEmail(email);
         if(isExist != null){
             verificationCodeRepository.delete(isExist);
