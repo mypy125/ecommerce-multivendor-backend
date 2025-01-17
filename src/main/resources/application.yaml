@@ -1,11 +1,15 @@
 server:
   port: 8080
 
+dotenv:
+  enabled: true
+  override: true
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/commerce
-    username: root
-    password: root
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10

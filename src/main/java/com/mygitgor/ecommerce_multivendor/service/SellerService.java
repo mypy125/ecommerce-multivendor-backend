@@ -2,13 +2,14 @@ package com.mygitgor.ecommerce_multivendor.service;
 
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
+import com.mygitgor.ecommerce_multivendor.exception.SellerException;
 
 import java.util.List;
 
 public interface SellerService {
     Seller getSellerProfile(String jwt) throws Exception;
     Seller createSeller(Seller seller) throws Exception;
-    Seller getSellerById(Long id) throws Exception;
+    Seller getSellerById(Long id) throws SellerException;
     Seller getSellerByEmail(String email) throws Exception;
     List<Seller> getAllSellers(AccountStatus status);
     Seller updateSeller(Long id, Seller seller) throws Exception;

@@ -5,10 +5,12 @@ import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.SignupRequest;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Cart;
+import com.mygitgor.ecommerce_multivendor.domain.Seller;
 import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.VerificationCode;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.repository.CartRepository;
+import com.mygitgor.ecommerce_multivendor.repository.SellerRepository;
 import com.mygitgor.ecommerce_multivendor.repository.UserRepository;
 import com.mygitgor.ecommerce_multivendor.repository.VerificationCodeRepository;
 import com.mygitgor.ecommerce_multivendor.service.AuthService;
@@ -39,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
     private final VerificationCodeRepository verificationCodeRepository;
     private final EmailService emailService;
     private final CustomUserServiceImpl customUserService;
+    private final SellerRepository sellerRepository;
 
 
     @Override
@@ -72,16 +75,25 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void sentLoginOtp(String email) throws Exception {
-        String SINGING_PREFIX="signin_";
+    public void sentLoginOtp(String email, USER_ROLE role) throws Exception {
+        String SINGING_PREFIX="signing_";
 
         if(email.startsWith(SINGING_PREFIX)){
             email = email.substring(SINGING_PREFIX.length());
 
-            User user = userRepository.findByEmail(email);
-            if(user ==null){
-                throw new Exception("user not exist with provided email");
+            if(role.equals(USER_ROLE.ROLE_SELLER)){
+                Seller seller = sellerRepository.findByEmail(email);
+                if(seller==null){
+                    throw new Exception("seller not exist with provided email");
+                }
+            }else {
+                User user = userRepository.findByEmail(email);
+                if(user ==null){
+                    throw new Exception("user not exist with provided email");
+                }
+
             }
+
         }
         VerificationCode isExist= verificationCodeRepository.findByEmail(email);
         if(isExist != null){
@@ -102,7 +114,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse signing(LoginRequest request) {
+    public AuthResponse signing(LoginRequest request) throws Exception {
         String username = request.getEmail();
         String otp= request.getOtp();
 
@@ -121,15 +133,21 @@ public class AuthServiceImpl implements AuthService {
         return authResponse;
     }
 
-    private Authentication authenticate(String username, String otp){
+    private Authentication authenticate(String username, String otp) throws Exception {
         UserDetails userDetails = customUserService.loadUserByUsername(username);
+
+        String SELLER_PREFIX="seller_";
+        if(username.startsWith(SELLER_PREFIX)){
+           username=username.substring(SELLER_PREFIX.length());
+        }
+
         if(userDetails==null){
             throw new BadCredentialsException("invalid username");
         }
 
         VerificationCode verificationCode = verificationCodeRepository.findByEmail(username);
         if(verificationCode==null || !verificationCode.getOtp().equals(otp)){
-            throw new BadCredentialsException("wrong otp");
+            throw new Exception("wrong otp");
         }
         return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
     }

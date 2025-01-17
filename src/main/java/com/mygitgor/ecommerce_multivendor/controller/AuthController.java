@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
+import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginOtpRequest;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.domain.VerificationCode;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.SignupRequest;
 import com.mygitgor.ecommerce_multivendor.service.AuthService;
@@ -22,7 +22,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthResponse>createUserHandler(@RequestBody SignupRequest req) throws Exception {
+    public ResponseEntity<AuthResponse>createUserHandler(@RequestBody SignupRequest req) throws Exception
+    {
         String jwt = authService.createUser(req);
 
         AuthResponse res = new AuthResponse();
@@ -34,8 +35,9 @@ public class AuthController {
     }
 
     @PostMapping("/sent/login-signup-otp")
-    public ResponseEntity<ApiResponse>sentOtpHandler(@RequestBody VerificationCode req) throws Exception {
-        authService.sentLoginOtp(req.getEmail());
+    public ResponseEntity<ApiResponse>sentOtpHandler(@RequestBody LoginOtpRequest req) throws Exception
+    {
+        authService.sentLoginOtp(req.getEmail(), req.getRole());
 
         ApiResponse res = new ApiResponse();
         res.setMessage("otp sent successfully");

@@ -31,6 +31,7 @@
 		<postgres.version>42.7.4</postgres.version>
 		<hibernate-core.version>6.4.4.Final</hibernate-core.version>
 		<jjwt-tocken.verdion>0.11.5</jjwt-tocken.verdion>
+		<spring-dotenv.version>3.0.0</spring-dotenv.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,7 +65,12 @@
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>me.paulschwarz</groupId>
+			<artifactId>spring-dotenv</artifactId>
+			<version>${spring-dotenv.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate-core.version}</version>
 			<type>pom</type>

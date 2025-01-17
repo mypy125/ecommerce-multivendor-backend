@@ -5,6 +5,7 @@ import com.mygitgor.ecommerce_multivendor.domain.Address;
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
+import com.mygitgor.ecommerce_multivendor.exception.SellerException;
 import com.mygitgor.ecommerce_multivendor.repository.AddressRepository;
 import com.mygitgor.ecommerce_multivendor.repository.SellerRepository;
 import com.mygitgor.ecommerce_multivendor.service.SellerService;
@@ -51,9 +52,9 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Seller getSellerById(Long id) throws Exception {
+    public Seller getSellerById(Long id) throws SellerException {
         return sellerRepository.findById(id)
-                .orElseThrow(() -> new Exception("seller not found with id "+id));
+                .orElseThrow(() -> new SellerException("seller not found with id "+id));
     }
 
     @Override
@@ -144,5 +145,6 @@ public class SellerServiceImpl implements SellerService {
     public Seller updateSellerAccountStatus(Long sellerId, AccountStatus status) throws Exception {
         Seller seller = getSellerById(sellerId);
         seller.setAccountStatus(status);
-        return sellerRepository.save(seller);    }
+        return sellerRepository.save(seller);
+    }
 }
