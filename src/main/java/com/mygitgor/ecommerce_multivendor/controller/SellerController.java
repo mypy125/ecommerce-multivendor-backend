@@ -1,11 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
-import com.mygitgor.ecommerce_multivendor.config.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginRequest;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
-import com.mygitgor.ecommerce_multivendor.domain.SellerReport;
 import com.mygitgor.ecommerce_multivendor.domain.VerificationCode;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.exception.SellerException;
