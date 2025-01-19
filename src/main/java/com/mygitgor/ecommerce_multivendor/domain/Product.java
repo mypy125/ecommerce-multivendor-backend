@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Product extends BaseEntity {
-    private String type;
+    private String title;
     private String description;
 
     private int mrpPrice;
