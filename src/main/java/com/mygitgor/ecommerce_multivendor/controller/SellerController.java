@@ -30,7 +30,6 @@ public class SellerController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse>loginSeller(@RequestBody LoginRequest req) throws Exception
     {
-//        String otp = req.getOtp();
         String email = req.getEmail();
 
         req.setEmail("seller_"+email);
@@ -89,11 +88,6 @@ public class SellerController {
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
 
-//    @GetMapping("/report")
-//    public ResponseEntity<SellerReport>getSellerReport(@RequestHeader("Authorization")String jwt){
-//        return null;
-//    }
-
     @GetMapping()
     public ResponseEntity<List<Seller>>getAllSeller(@RequestParam(required = false)
                                                         AccountStatus status)
@@ -117,7 +111,5 @@ public class SellerController {
         sellerService.deleteSeller(id);
         return ResponseEntity.noContent().build();
     }
-
-
 
 }
