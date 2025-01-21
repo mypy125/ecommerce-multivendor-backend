@@ -1,6 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
 import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseProductEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,14 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Product extends BaseEntity {
-    private String title;
-    private String description;
-
+public class Product extends BaseProductEntity {
     private int mrpPrice;
     private int sellingPrice;
     private int discountPercent;
-    private int quantity;
 
     private String color;
 
@@ -35,8 +32,6 @@ public class Product extends BaseEntity {
 
     @ManyToOne
     private Seller seller;
-
-    private LocalDateTime createdAt;
 
 //    @ElementCollection
     private String size;
