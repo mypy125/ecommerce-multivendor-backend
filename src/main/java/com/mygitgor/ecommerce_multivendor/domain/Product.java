@@ -1,11 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
-import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
 import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseProductEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
