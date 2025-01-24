@@ -1,14 +1,17 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
+import com.mygitgor.ecommerce_multivendor.config.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
+import com.mygitgor.ecommerce_multivendor.domain.SellerReport;
 import com.mygitgor.ecommerce_multivendor.domain.VerificationCode;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.exception.SellerException;
 import com.mygitgor.ecommerce_multivendor.repository.VerificationCodeRepository;
 import com.mygitgor.ecommerce_multivendor.service.AuthService;
 import com.mygitgor.ecommerce_multivendor.service.EmailService;
+import com.mygitgor.ecommerce_multivendor.service.SellerReportService;
 import com.mygitgor.ecommerce_multivendor.service.SellerService;
 import com.mygitgor.ecommerce_multivendor.utils.OtpUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,8 @@ public class SellerController {
     private final SellerService sellerService;
     private final AuthService authService;
     private final EmailService emailService;
+    private final JwtProvider jwtProvider;
+    private final SellerReportService sellerReportService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse>loginSeller(@RequestBody LoginRequest req) throws Exception
@@ -86,6 +91,15 @@ public class SellerController {
     {
         Seller seller = sellerService.getSellerProfile(jwt);
         return new ResponseEntity<>(seller, HttpStatus.OK);
+    }
+
+    @GetMapping("/report")
+    public ResponseEntity<SellerReport>getSellerReport(@RequestHeader("Authorization")
+                                                    String jwt) throws Exception
+    {
+        Seller seller = sellerService.getSellerProfile(jwt);
+        SellerReport report = sellerReportService.getSellerReport(seller);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     @GetMapping()

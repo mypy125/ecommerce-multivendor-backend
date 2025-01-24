@@ -30,10 +30,13 @@
 		<java.version>17</java.version>
 		<postgres.version>42.7.4</postgres.version>
 		<hibernate-core.version>6.4.4.Final</hibernate-core.version>
+		<jackson-databin-jsr310.version>2.15.2</jackson-databin-jsr310.version>
 		<jjwt-tocken.verdion>0.11.5</jjwt-tocken.verdion>
 		<spring-dotenv.version>3.0.0</spring-dotenv.version>
 		<mockito-core.version>5.4.0</mockito-core.version>
 		<net-byte-boddy.version>1.15.11</net-byte-boddy.version>
+		<razorpay-java.version>1.4.8</razorpay-java.version>
+		<com-stripe.version>25.9.0</com-stripe.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,26 +65,53 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>${jackson-databin-jsr310.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.razorpay/razorpay-java__and__stripe-java -->
+		<dependency>
+			<groupId>com.razorpay</groupId>
+			<artifactId>razorpay-java</artifactId>
+			<version>${razorpay-java.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>${com-stripe.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/me.paulschwarz/spring-dotenv -->
+		<dependency>
 			<groupId>me.paulschwarz</groupId>
 			<artifactId>spring-dotenv</artifactId>
 			<version>${spring-dotenv.version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate-core.version}</version>
 			<type>pom</type>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgres.version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -99,11 +129,15 @@
 			<version>${jjwt-tocken.verdion}</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
