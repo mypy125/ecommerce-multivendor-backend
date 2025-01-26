@@ -2,8 +2,6 @@ package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.mygitgor.ecommerce_multivendor.domain.Order;
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
-import com.mygitgor.ecommerce_multivendor.domain.SellerReport;
-import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.costant.OrderStatus;
 import com.mygitgor.ecommerce_multivendor.service.OrderService;
 import com.mygitgor.ecommerce_multivendor.service.SellerService;
