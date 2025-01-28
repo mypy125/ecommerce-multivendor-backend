@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.service.impl;
 
+import com.mygitgor.ecommerce_multivendor.config.PaymentConfig;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.PaymentLinkResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Order;
 import com.mygitgor.ecommerce_multivendor.domain.PaymentOrder;
@@ -28,10 +29,8 @@ import java.util.Set;
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentOrderRepository paymentOrderRepository;
     private final OrderRepository orderRepository;
+    private final PaymentConfig conf;
 
-    private final String apiKey="apikey";
-    private final String apiSecret="apiSecret";
-    private final String stripSecretKey="stripSecretKey";
 
     @Override
     public PaymentOrder createOrder(User user, Set<Order> orders) {
@@ -66,7 +65,7 @@ public class PaymentServiceImpl implements PaymentService {
                                        String paymentLinkId) throws RazorpayException
     {
         if(paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING)){
-            RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecret);
+            RazorpayClient razorpay = new RazorpayClient(conf.getRazorpayApiKey(), conf.getRazorpayApiKey());
             Payment payment = razorpay.payments.fetch(paymentId);
 
             String status= payment.get("status");
@@ -91,7 +90,7 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentLink createRazorpayPaymentLink(User user, Long amount, Long orderId) throws RazorpayException {
         amount=amount*100;
         try{
-            RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecret);
+            RazorpayClient razorpay = new RazorpayClient(conf.getRazorpayApiKey(), conf.getRazorpayApiKey());
 
             JSONObject paymentLinkRequest = getJsonObject(user, amount, orderId);
 
@@ -129,7 +128,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String createStripePaymentLink(User user, Long amount, Long orderId) throws StripeException {
-        Stripe.apiKey = stripSecretKey;
+        Stripe.apiKey = conf.getStripeApiKey();
         SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType(
                         SessionCreateParams
                                 .PaymentMethodType.CARD)
