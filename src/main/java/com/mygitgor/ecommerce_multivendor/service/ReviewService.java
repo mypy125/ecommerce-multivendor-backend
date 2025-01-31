@@ -19,7 +19,9 @@ public interface ReviewService {
                         String reviewText,
                         double rating,
                         Long userId
-    );
+    ) throws Exception;
 
-    void deleteReview(Long reviewId, Long userId);
+    void deleteReview(Long reviewId, Long userId) throws Exception;
+
+    Review getReviewById(Long reviewId) throws Exception;
 }
