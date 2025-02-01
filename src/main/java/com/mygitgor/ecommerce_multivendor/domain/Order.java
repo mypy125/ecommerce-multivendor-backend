@@ -24,7 +24,7 @@ public class Order extends BaseEntity {
     private String orderId;
 
     @ManyToOne
-    private User user;
+    private Users users;
     private Long sellerId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

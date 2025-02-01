@@ -3,7 +3,7 @@ package com.mygitgor.ecommerce_multivendor.service.impl;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.CreateReviewRequest;
 import com.mygitgor.ecommerce_multivendor.domain.Product;
 import com.mygitgor.ecommerce_multivendor.domain.Review;
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.Users;
 import com.mygitgor.ecommerce_multivendor.repository.ReviewRepository;
 import com.mygitgor.ecommerce_multivendor.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,9 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     
     @Override
-    public Review createReview(CreateReviewRequest request, User user, Product product) {
+    public Review createReview(CreateReviewRequest request, Users users, Product product) {
         Review review = new Review();
-        review.setUser(user);
+        review.setUsers(users);
         review.setProduct(product);
         review.setReviewText(request.getReviewText());
         review.setRating(request.getReviewRating());
@@ -37,7 +37,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review updateReview(Long reviewId, String reviewText, double rating, Long userId) throws Exception {
         Review review = getReviewById(reviewId);
-        if(review.getUser().getId().equals(userId)){
+        if(review.getUsers().getId().equals(userId)){
             review.setReviewText(reviewText);
             review.setRating(rating);
             return reviewRepository.save(review);
@@ -48,7 +48,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteReview(Long reviewId, Long userId) throws Exception {
         Review review = getReviewById(reviewId);
-        if(review.getUser().getId().equals(userId)){
+        if(review.getUsers().getId().equals(userId)){
             throw new Exception("you can't delete this review");
         }
         reviewRepository.delete(review);

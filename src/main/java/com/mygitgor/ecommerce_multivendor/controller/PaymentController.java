@@ -24,7 +24,7 @@ public class PaymentController {
                                                             @RequestHeader("Authorization")
                                                                 String jwt) throws Exception
     {
-        User user = userService.findByJwtToken(jwt);
+        Users users = userService.findByJwtToken(jwt);
         PaymentOrder paymentOrder = paymentService.getPaymentOrderByPaymentId(paymentLinkId);
 
         boolean paymentSuccess = paymentService.proceedPaymentOrder(

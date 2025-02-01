@@ -26,7 +26,7 @@ public class PaymentOrder extends BaseEntity {
     private String paymentLinkId;
 
     @ManyToOne
-    private User user;
+    private Users users;
 
     @OneToMany
     private Set<Order> orders = new HashSet<>();

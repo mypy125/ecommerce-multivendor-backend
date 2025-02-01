@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This project is an e-commerce platform with functionality divided into three main roles: **users** (customers), **sellers**, and **administrators**. The backend handles all the business logic, data processing, storage, user authentication, order and product management, and integrations with external services like email notifications and payment gateways.
+This project is an e-commerce platform with functionality divided into three main roles: **users** (customers), **sellers**, and **administrators**. The backend handles all the business logic, data processing, storage, users authentication, order and product management, and integrations with external services like email notifications and payment gateways.
 
 ---
 
@@ -19,7 +19,7 @@ This project is an e-commerce platform with functionality divided into three mai
 - **Spring Boot**: Framework for building RESTful APIs.
 - **PostgreSQL**: Relational database for data storage.
 - **Spring Security**: For authentication, authorization, and API security.
-- **JWT (JSON Web Tokens)**: For securely transmitting user data between the client and server.
+- **JWT (JSON Web Tokens)**: For securely transmitting users data between the client and server.
 - **Java Mail Sender**: For sending email notifications to users.
 - **Spring Data JPA**: For simplified interaction with the database via ORM.
 - **Spring Batch** (optional): For batch data processing.
@@ -39,7 +39,7 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ### 1. **User Management**
 - **Registration & Authentication**: User registration and JWT-based authentication.
-- **User Profiles**: Edit user details, manage delivery addresses.
+- **User Profiles**: Edit users details, manage delivery addresses.
 - **Order History**: Retrieve past orders, with filtering and pagination options.
 
 ### 2. **Order Management**
@@ -94,7 +94,7 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ## Scalability Opportunities
 
-- **Microservices**: The project can be split into microservices, such as order processing, user management, and product catalog services.
+- **Microservices**: The project can be split into microservices, such as order processing, users management, and product catalog services.
 - **Caching**: Implement caching with services like **Redis** to improve performance.
 - **Big Data Processing**: For reporting and analytics, **Spring Batch** can be used for batch data processing.
 

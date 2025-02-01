@@ -18,7 +18,7 @@ import java.util.Set;
 public class Wishlist extends BaseEntity {
 
     @OneToOne
-    private User user;
+    private Users users;
 
     @ManyToMany
     private Set<Product> products = new HashSet<>();

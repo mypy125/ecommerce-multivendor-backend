@@ -2,7 +2,7 @@ package com.mygitgor.ecommerce_multivendor.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.domain.Cart;
 import com.mygitgor.ecommerce_multivendor.domain.Coupon;
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.Users;
 import com.mygitgor.ecommerce_multivendor.repository.CouponRepository;
 import com.mygitgor.ecommerce_multivendor.service.CouponService;
 import com.mygitgor.ecommerce_multivendor.service.UserService;
@@ -18,12 +18,12 @@ public class CouponServiceImpl implements CouponService {
     private final UserService userService;
     
     @Override
-    public Cart applyCoupon(String code, double orderValue, User user) {
+    public Cart applyCoupon(String code, double orderValue, Users users) {
         return null;
     }
 
     @Override
-    public Cart removeCoupon(String code, User user) {
+    public Cart removeCoupon(String code, Users users) {
         return null;
     }
 

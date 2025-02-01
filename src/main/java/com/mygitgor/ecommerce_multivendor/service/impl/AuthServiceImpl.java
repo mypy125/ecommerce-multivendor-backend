@@ -6,7 +6,7 @@ import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.SignupRequest;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Cart;
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.Users;
 import com.mygitgor.ecommerce_multivendor.domain.VerificationCode;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.repository.CartRepository;
@@ -51,18 +51,18 @@ public class AuthServiceImpl implements AuthService {
             throw new Exception("wrong otp...");
         }
 
-        User user = userRepository.findByEmail(req.getEmail());
-        if(user==null){
-            User createUser = new User();
-            createUser.setEmail(req.getEmail());
-            createUser.setFullName(req.getFullName());
-            createUser.setRole(USER_ROLE.ROLE_CUSTOMER);
-            createUser.setMobile("37444******");
-            createUser.setPassword(passwordEncoder.encode(req.getOtp()));
-            user = userRepository.save(createUser);
+        Users users = userRepository.findByEmail(req.getEmail());
+        if(users ==null){
+            Users createUsers = new Users();
+            createUsers.setEmail(req.getEmail());
+            createUsers.setFullName(req.getFullName());
+            createUsers.setRole(USER_ROLE.ROLE_CUSTOMER);
+            createUsers.setMobile("37444******");
+            createUsers.setPassword(passwordEncoder.encode(req.getOtp()));
+            users = userRepository.save(createUsers);
 
             Cart cart = new Cart();
-            cart.setUser(user);
+            cart.setUsers(users);
             cartRepository.save(cart);
         }
         List<GrantedAuthority> authority = new ArrayList<>();
@@ -87,8 +87,8 @@ public class AuthServiceImpl implements AuthService {
                     throw new Exception("seller not exist with provided email");
                 }
             }else {
-                User user = userRepository.findByEmail(email);
-                if(user ==null){
+                Users users = userRepository.findByEmail(email);
+                if(users ==null){
                     throw new Exception("user not exist with provided email");
                 }
 

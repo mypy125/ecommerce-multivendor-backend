@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Transaction extends BaseEntity {
 
     @ManyToOne
-    private User customer;
+    private Users customer;
 
     @OneToOne
     private Order order;

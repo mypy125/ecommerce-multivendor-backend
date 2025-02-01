@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.domain.CartItem;
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.Users;
 import com.mygitgor.ecommerce_multivendor.repository.CartItemRepository;
 import com.mygitgor.ecommerce_multivendor.service.CartItemService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,8 @@ public class CartItemServiceImpl implements CartItemService {
     public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws Exception {
         CartItem item = findCartItemById(id);
 
-        User cartItemUser= item.getCart().getUser();
-        if(cartItemUser.getId().equals(userId)){
+        Users cartItemUsers = item.getCart().getUsers();
+        if(cartItemUsers.getId().equals(userId)){
             item.setQuantity(cartItem.getQuantity());
             item.setMrpPrice(item.getQuantity()*item.getProduct().getMrpPrice());
             item.setSellingPrice(item.getQuantity()*item.getProduct().getSellingPrice());
@@ -30,8 +30,8 @@ public class CartItemServiceImpl implements CartItemService {
     public void removeCartItem(Long userId, Long cartItemId) throws Exception {
         CartItem item = findCartItemById(cartItemId);
 
-        User cartItemUser= item.getCart().getUser();
-        if(cartItemUser.getId().equals(userId)){
+        Users cartItemUsers = item.getCart().getUsers();
+        if(cartItemUsers.getId().equals(userId)){
             cartItemRepository.delete(item);
         }
         else throw new Exception("you can't delete this item");

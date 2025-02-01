@@ -2,11 +2,10 @@ package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.AddItemRequest;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Cart;
 import com.mygitgor.ecommerce_multivendor.domain.CartItem;
 import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.Users;
 import com.mygitgor.ecommerce_multivendor.service.CartItemService;
 import com.mygitgor.ecommerce_multivendor.service.CartService;
 import com.mygitgor.ecommerce_multivendor.service.ProductService;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -55,7 +53,7 @@ class CartControllerTest {
     @InjectMocks
     private CartController cartController;
 
-    private User user;
+    private Users users;
     private Product product;
     private CartItem cartItem;
     private AddItemRequest addItemRequest;
@@ -64,9 +62,9 @@ class CartControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(cartController).build();
 
-        user = new User();
-        user.setId(1L);
-        user.setFullName("Test User");
+        users = new Users();
+        users.setId(1L);
+        users.setFullName("Test User");
 
         product = new Product();
         product.setId(1L);
@@ -85,7 +83,7 @@ class CartControllerTest {
 
     @Test
     void addItemToCart_shouldReturnSuccess() throws Exception {
-        when(userService.findByJwtToken("valid-jwt")).thenReturn(user);
+        when(userService.findByJwtToken("valid-jwt")).thenReturn(users);
         when(productService.findProductById(1L)).thenReturn(product);
         when(cartService.addCartItem(any(), any(), any(), anyInt())).thenReturn(cartItem);
 
@@ -99,8 +97,8 @@ class CartControllerTest {
 
     @Test
     void deleteCartItem_shouldReturnSuccess() throws Exception {
-        when(userService.findByJwtToken("valid-jwt")).thenReturn(user);
-        doNothing().when(cartItemService).removeCartItem(user.getId(), 1L);
+        when(userService.findByJwtToken("valid-jwt")).thenReturn(users);
+        doNothing().when(cartItemService).removeCartItem(users.getId(), 1L);
 
         mockMvc.perform(delete("/api/cart/item/1")
                         .header("Authorization", "valid-jwt"))
@@ -115,8 +113,8 @@ class CartControllerTest {
         updatedCartItem.setProduct(product);
         updatedCartItem.setQuantity(3);
 
-        when(userService.findByJwtToken("valid-jwt")).thenReturn(user);
-        when(cartItemService.updateCartItem(user.getId(), 1L, cartItem)).thenReturn(updatedCartItem);
+        when(userService.findByJwtToken("valid-jwt")).thenReturn(users);
+        when(cartItemService.updateCartItem(users.getId(), 1L, cartItem)).thenReturn(updatedCartItem);
 
         mockMvc.perform(put("/api/cart/item/1")
                         .header("Authorization", "valid-jwt")
@@ -132,8 +130,8 @@ class CartControllerTest {
         Cart cart = new Cart();
         cart.setId(1L);
 
-        when(userService.findByJwtToken("valid-jwt")).thenReturn(user);
-        when(cartService.findUserCart(user)).thenReturn(cart);
+        when(userService.findByJwtToken("valid-jwt")).thenReturn(users);
+        when(cartService.findUserCart(users)).thenReturn(cart);
 
         mockMvc.perform(get("/api/cart")
                         .header("Authorization", "valid-jwt"))

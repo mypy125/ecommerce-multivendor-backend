@@ -5,7 +5,7 @@ import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Cart;
 import com.mygitgor.ecommerce_multivendor.domain.CartItem;
 import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.Users;
 import com.mygitgor.ecommerce_multivendor.service.CartItemService;
 import com.mygitgor.ecommerce_multivendor.service.CartService;
 import com.mygitgor.ecommerce_multivendor.service.ProductService;
@@ -28,8 +28,8 @@ public class CartController {
     public ResponseEntity<Cart>findUserCartHandler(@RequestHeader("Authorization")
                                                        String jwt) throws Exception
     {
-        User user =userService.findByJwtToken(jwt);
-        Cart cart = cartService.findUserCart(user);
+        Users users =userService.findByJwtToken(jwt);
+        Cart cart = cartService.findUserCart(users);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -38,11 +38,11 @@ public class CartController {
                                                  @RequestHeader("Authorization")
                                                        String jwt) throws Exception
     {
-        User user =userService.findByJwtToken(jwt);
+        Users users =userService.findByJwtToken(jwt);
         Product product = productService.findProductById(request.getProductId());
 
         CartItem item = cartService.addCartItem(
-                user,product,request.getSize(),request.getQuantity()
+                users,product,request.getSize(),request.getQuantity()
         );
         ApiResponse response = new ApiResponse();
         response.setMessage("Item added to cart Successfully");
@@ -54,8 +54,8 @@ public class CartController {
                                                             @RequestHeader("Authorization")
                                                             String jwt) throws Exception
     {
-        User user =userService.findByJwtToken(jwt);
-        cartItemService.removeCartItem(user.getId(), cartItemId);
+        Users users =userService.findByJwtToken(jwt);
+        cartItemService.removeCartItem(users.getId(), cartItemId);
         ApiResponse response = new ApiResponse();
         response.setMessage("Item remove from cart Successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -67,10 +67,10 @@ public class CartController {
                                                             @RequestHeader("Authorization")
                                                             String jwt) throws Exception
     {
-        User user =userService.findByJwtToken(jwt);
+        Users users =userService.findByJwtToken(jwt);
        CartItem updateCartItem = null;
        if(cartItem.getQuantity()>0){
-           updateCartItem=cartItemService.updateCartItem(user.getId(), cartItemId, cartItem);
+           updateCartItem=cartItemService.updateCartItem(users.getId(), cartItemId, cartItem);
        }
 
         return new ResponseEntity<>(updateCartItem, HttpStatus.ACCEPTED);

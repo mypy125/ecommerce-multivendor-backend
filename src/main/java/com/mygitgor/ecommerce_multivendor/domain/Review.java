@@ -31,7 +31,7 @@ public class Review extends BaseEntity {
     private Product product;
 
     @ManyToOne
-    private User user;
+    private Users users;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();

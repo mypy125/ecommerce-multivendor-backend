@@ -30,6 +30,7 @@
 		<java.version>17</java.version>
 		<postgres.version>42.7.4</postgres.version>
 		<hibernate-core.version>6.4.4.Final</hibernate-core.version>
+		<flyw-cor-for-migration.version>9.0.0</flyw-cor-for-migration.version>
 		<jackson-databin-jsr310.version>2.15.2</jackson-databin-jsr310.version>
 		<jjwt-tocken.verdion>0.11.5</jjwt-tocken.verdion>
 		<spring-dotenv.version>3.0.0</spring-dotenv.version>
@@ -102,6 +103,13 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate-core.version}</version>
 			<type>pom</type>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyw-cor-for-migration.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
