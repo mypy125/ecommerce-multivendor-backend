@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.repository;
 
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
-    Users findByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
 }

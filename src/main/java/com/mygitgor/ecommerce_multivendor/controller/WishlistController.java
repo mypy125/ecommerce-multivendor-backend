@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.Wishlist;
 import com.mygitgor.ecommerce_multivendor.service.ProductService;
 import com.mygitgor.ecommerce_multivendor.service.UserService;
@@ -22,8 +22,8 @@ public class WishlistController {
     public ResponseEntity<Wishlist>getWishlistByUserId(@RequestHeader("Authorization")
                                                            String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
-        Wishlist wishlist = wishlistService.getWishlistByUserId(users);
+        User user = userService.findByJwtToken(jwt);
+        Wishlist wishlist = wishlistService.getWishlistByUserId(user);
         return ResponseEntity.ok(wishlist);
     }
 
@@ -33,8 +33,8 @@ public class WishlistController {
                                                            String jwt) throws Exception
     {
         Product product = productService.findProductById(productId);
-        Users users = userService.findByJwtToken(jwt);
-        Wishlist updateWishlist = wishlistService.addProductToWishlist(users,product);
+        User user = userService.findByJwtToken(jwt);
+        Wishlist updateWishlist = wishlistService.addProductToWishlist(user,product);
         return ResponseEntity.ok(updateWishlist);
     }
 }

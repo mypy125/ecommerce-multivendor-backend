@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Users extends BasePerson {
+public class User extends BasePerson {
     private String fullName;
 
     @OneToMany

@@ -16,7 +16,7 @@ import java.util.Set;
 public class Wishlist extends BaseEntity {
 
     @OneToOne
-    private Users users;
+    private User user;
 
     @ManyToMany
     @JoinTable(

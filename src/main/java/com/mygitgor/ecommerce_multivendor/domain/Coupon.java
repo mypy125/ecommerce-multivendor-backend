@@ -24,5 +24,5 @@ public class Coupon extends BaseEntity {
     private boolean isActive = true;
 
     @ManyToMany(mappedBy = "usedCoupons")
-    private Set<Users> usedByUsers = new HashSet<>();
+    private Set<User> usedByUsers = new HashSet<>();
 }

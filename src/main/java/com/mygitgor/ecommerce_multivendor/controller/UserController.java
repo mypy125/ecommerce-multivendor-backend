@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +14,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users/profile")
-    public ResponseEntity<Users> createUserHandler(@RequestHeader("Authorization")
+    public ResponseEntity<User> createUserHandler(@RequestHeader("Authorization")
                                                       String jwt) throws Exception {
-        Users users = userService.findByJwtToken(jwt);
-        return ResponseEntity.ok(users);
+        User user = userService.findByJwtToken(jwt);
+        return ResponseEntity.ok(user);
     }
 }

@@ -3,13 +3,13 @@ package com.mygitgor.ecommerce_multivendor.service;
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.CreateReviewRequest;
 import com.mygitgor.ecommerce_multivendor.domain.Product;
 import com.mygitgor.ecommerce_multivendor.domain.Review;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 
 import java.util.List;
 
 public interface ReviewService {
     Review createReview(CreateReviewRequest request,
-                        Users users,
+                        User user,
                         Product product
     );
 

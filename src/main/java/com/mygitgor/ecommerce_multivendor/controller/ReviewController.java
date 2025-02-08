@@ -5,7 +5,7 @@ import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.CreateReviewRe
 import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.domain.Product;
 import com.mygitgor.ecommerce_multivendor.domain.Review;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.service.ProductService;
 import com.mygitgor.ecommerce_multivendor.service.ReviewService;
 import com.mygitgor.ecommerce_multivendor.service.UserService;
@@ -36,9 +36,9 @@ public class ReviewController {
                                              @RequestHeader("Authorization")
                                                  String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
+        User user = userService.findByJwtToken(jwt);
         Product product = productService.findProductById(productId);
-        Review review = reviewService.createReview(req, users,product);
+        Review review = reviewService.createReview(req, user,product);
 
         return ResponseEntity.ok(review);
     }
@@ -49,9 +49,9 @@ public class ReviewController {
                                               @RequestHeader("Authorization")
                                               String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
+        User user = userService.findByJwtToken(jwt);
         Review review = reviewService.updateReview(
-                reviewId, req.getReviewText(),req.getReviewRating(), users.getId()
+                reviewId, req.getReviewText(),req.getReviewRating(), user.getId()
         );
         return ResponseEntity.ok(review);
     }
@@ -61,8 +61,8 @@ public class ReviewController {
                                                    @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
-        reviewService.deleteReview(reviewId, users.getId());
+        User user = userService.findByJwtToken(jwt);
+        reviewService.deleteReview(reviewId, user.getId());
 
         ApiResponse response = new ApiResponse();
         response.setMessage("Review deleted successfully");

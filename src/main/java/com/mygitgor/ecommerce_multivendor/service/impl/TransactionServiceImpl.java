@@ -23,7 +23,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         Transaction transaction = new Transaction();
         transaction.setSeller(seller);
-        transaction.setCustomer(order.getUsers());
+        transaction.setCustomer(order.getUser());
         transaction.setOrder(order);
 
         return transactionRepository.save(transaction);

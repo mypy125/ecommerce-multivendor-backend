@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.Wishlist;
 import com.mygitgor.ecommerce_multivendor.repository.WishlistRepository;
 import com.mygitgor.ecommerce_multivendor.service.WishlistService;
@@ -14,24 +14,24 @@ public class WishlistServiceImpl implements WishlistService {
    private final WishlistRepository wishlistRepository;
 
     @Override
-    public Wishlist createWishlist(Users users) {
+    public Wishlist createWishlist(User user) {
         Wishlist wishlist = new Wishlist();
-        wishlist.setUsers(users);
+        wishlist.setUser(user);
         return wishlistRepository.save(wishlist);
     }
 
     @Override
-    public Wishlist getWishlistByUserId(Users users) {
-        Wishlist wishlist = wishlistRepository.findByUsersId(users.getId());
+    public Wishlist getWishlistByUserId(User user) {
+        Wishlist wishlist = wishlistRepository.findByUsersId(user.getId());
         if(wishlist==null){
-            wishlist=createWishlist(users);
+            wishlist=createWishlist(user);
         }
         return wishlist;
     }
 
     @Override
-    public Wishlist addProductToWishlist(Users users, Product product) {
-        Wishlist wishlist = getWishlistByUserId(users);
+    public Wishlist addProductToWishlist(User user, Product product) {
+        Wishlist wishlist = getWishlistByUserId(user);
         if(wishlist.getProducts().contains(product)){
             wishlist.getProducts().remove(product);
         }

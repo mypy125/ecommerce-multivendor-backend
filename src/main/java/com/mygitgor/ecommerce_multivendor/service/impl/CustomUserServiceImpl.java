@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.domain.Seller;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.repository.SellerRepository;
 import com.mygitgor.ecommerce_multivendor.repository.UserRepository;
@@ -33,9 +33,9 @@ public class CustomUserServiceImpl implements UserDetailsService {
                 return buildUserDetails(seller.getEmail(),seller.getPassword(),seller.getRole());
             }
         }else {
-            Users users = userRepository.findByEmail(username);
-            if(users != null){
-                return buildUserDetails(users.getEmail(), users.getPassword(), users.getRole());
+            User user = userRepository.findByEmail(username);
+            if(user != null){
+                return buildUserDetails(user.getEmail(), user.getPassword(), user.getRole());
             }
         }
         throw new UsernameNotFoundException("user or seller not found with email "+username);

@@ -29,16 +29,16 @@ class OrderServiceImplTest {
     @InjectMocks
     private OrderServiceImpl orderService;
 
-    private Users users;
+    private User user;
     private Address shippingAddress;
     private Cart cart;
     private Product product;
 
     @BeforeEach
     void setUp() {
-        users = new Users();
-        users.setId(1L);
-        users.setAddresses(new HashSet<>());
+        user = new User();
+        user.setId(1L);
+        user.setAddresses(new HashSet<>());
 
         shippingAddress = new Address();
         shippingAddress.setId(1L);

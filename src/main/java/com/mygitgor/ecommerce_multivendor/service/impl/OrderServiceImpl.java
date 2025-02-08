@@ -21,12 +21,12 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
 
     @Override
-    public Set<Order> createOrder(Users users,
+    public Set<Order> createOrder(User user,
                                   Address shippingAddress,
                                   Cart cart
     ) {
-        if(!users.getAddresses().contains(shippingAddress)){
-            users.getAddresses().add(shippingAddress);
+        if(!user.getAddresses().contains(shippingAddress)){
+            user.getAddresses().add(shippingAddress);
         }
         Address address = addressRepository.save(shippingAddress);
 
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
             int totalItem = items.stream().mapToInt(CartItem::getQuantity).sum();
 
             Order createOrder = new Order();
-            createOrder.setUsers(users);
+            createOrder.setUser(user);
             createOrder.setSellerId(sellerId);
             createOrder.setTotalMrpPrice(totalOrderPrice);
             createOrder.setTotalSellingPrice(totalOrderPrice);
@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> usersOrderHistory(Long userId) {
-        return orderRepository.findByUsersId(userId);
+        return orderRepository.findByUserId(userId);
     }
 
     @Override
@@ -103,10 +103,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order cancelOrder(Long orderId, Users users) throws Exception {
+    public Order cancelOrder(Long orderId, User user) throws Exception {
         Order order = findOrderById(orderId);
 
-        if(!users.getId().equals(order.getUsers().getId())){
+        if(!user.getId().equals(order.getUser().getId())){
             throw new Exception("you don't have access to this order!");
         }
         order.setOrderStatus(OrderStatus.CANCELED);

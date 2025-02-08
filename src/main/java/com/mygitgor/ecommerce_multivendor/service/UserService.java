@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 
 public interface UserService {
-    Users findByJwtToken(String jwt) throws Exception;
-    Users findUserByEmail(String email) throws Exception;
+    User findByJwtToken(String jwt) throws Exception;
+    User findUserByEmail(String email) throws Exception;
 }

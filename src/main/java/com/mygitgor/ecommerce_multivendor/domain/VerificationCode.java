@@ -17,7 +17,7 @@ public class VerificationCode extends BaseEntity {
     private String email;
 
     @OneToOne
-    private Users users;
+    private User user;
 
     @OneToOne
     private Seller seller;

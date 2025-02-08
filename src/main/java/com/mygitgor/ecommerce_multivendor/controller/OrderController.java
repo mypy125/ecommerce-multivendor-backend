@@ -31,16 +31,16 @@ public class OrderController {
                                                                  @RequestParam PaymentMethod paymentMethod,
                                                                  @RequestHeader("Authorization")
                                                                     String jwt) throws Exception {
-        Users users = userService.findByJwtToken(jwt);
-        Cart cart = cartService.findUserCart(users);
-        Set<Order>orders=orderService.createOrder(users,shippingAddress,cart);
+        User user = userService.findByJwtToken(jwt);
+        Cart cart = cartService.findUserCart(user);
+        Set<Order>orders=orderService.createOrder(user,shippingAddress,cart);
 
-        PaymentOrder paymentOrder = paymentService.createOrder(users,orders);
+        PaymentOrder paymentOrder = paymentService.createOrder(user,orders);
 
         PaymentLinkResponse res = new PaymentLinkResponse();
         if(paymentMethod.equals(PaymentMethod.RAZORPAY)){
             PaymentLink payment = paymentService.createRazorpayPaymentLink(
-                    users, paymentOrder.getAmount(), paymentOrder.getId()
+                    user, paymentOrder.getAmount(), paymentOrder.getId()
             );
             String paymentUrl=payment.get("short_url");
             String paymentId=payment.get("id");
@@ -51,7 +51,7 @@ public class OrderController {
             paymentOrderRepository.save(paymentOrder);
         }else {
             String paymentUrl=paymentService.createStripePaymentLink(
-                    users, paymentOrder.getAmount(), paymentOrder.getId()
+                    user, paymentOrder.getAmount(), paymentOrder.getId()
             );
             res.setPayment_link_url(paymentUrl);
         }
@@ -64,8 +64,8 @@ public class OrderController {
     public ResponseEntity<List<Order>>usersOrderHistoryHandler(@RequestHeader("Authorization")
                                                                   String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
-        List<Order>orders = orderService.usersOrderHistory(users.getId());
+        User user = userService.findByJwtToken(jwt);
+        List<Order>orders = orderService.usersOrderHistory(user.getId());
         return new ResponseEntity<>(orders,HttpStatus.ACCEPTED);
     }
 
@@ -74,7 +74,7 @@ public class OrderController {
                                                    @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
+        User user = userService.findByJwtToken(jwt);
         Order order = orderService.findOrderById(orderId);
         return new ResponseEntity<>(order,HttpStatus.ACCEPTED);
     }
@@ -84,7 +84,7 @@ public class OrderController {
                                                    @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
+        User user = userService.findByJwtToken(jwt);
         OrderItem orderItem = orderService.getOrderItemById(orderItemId);
         return new ResponseEntity<>(orderItem,HttpStatus.ACCEPTED);
     }
@@ -94,8 +94,8 @@ public class OrderController {
                                                    @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
-        Users users = userService.findByJwtToken(jwt);
-        Order order = orderService.cancelOrder(orderId, users);
+        User user = userService.findByJwtToken(jwt);
+        Order order = orderService.cancelOrder(orderId, user);
 
         Seller seller = sellerService.getSellerById(order.getSellerId());
         SellerReport report = sellerReportService.getSellerReport(seller);

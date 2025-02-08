@@ -15,7 +15,7 @@ import java.util.Set;
 public class Cart extends BaseEntity {
 
     @OneToOne
-    private Users users;
+    private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItem> cartItems = new HashSet<>();

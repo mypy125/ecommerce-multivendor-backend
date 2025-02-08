@@ -3,7 +3,7 @@ package com.mygitgor.ecommerce_multivendor.service.impl;
 import com.mygitgor.ecommerce_multivendor.domain.Cart;
 import com.mygitgor.ecommerce_multivendor.domain.CartItem;
 import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.repository.CartItemRepository;
 import com.mygitgor.ecommerce_multivendor.repository.CartRepository;
 import com.mygitgor.ecommerce_multivendor.service.CartService;
@@ -17,15 +17,15 @@ public class CartServiceImpl implements CartService {
     private final CartItemRepository cartItemRepository;
 
     @Override
-    public CartItem addCartItem(Users users, Product product, String size, int quantity) throws IllegalAccessException {
-        Cart cart = findUserCart(users);
+    public CartItem addCartItem(User user, Product product, String size, int quantity) throws IllegalAccessException {
+        Cart cart = findUserCart(user);
 
         CartItem isPresent = cartItemRepository.findByCartAndProductAndSize(cart,product,size);
         if(isPresent==null){
             CartItem cartItem = new CartItem();
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
-            cartItem.setUserId(users.getId());
+            cartItem.setUserId(user.getId());
             cartItem.setSize(size);
 
             int totalPrice=quantity*product.getSellingPrice();
@@ -41,8 +41,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart findUserCart(Users users) throws IllegalAccessException {
-        Cart cart = cartRepository.findByUsersId(users.getId());
+    public Cart findUserCart(User user) throws IllegalAccessException {
+        Cart cart = cartRepository.findByUserId(user.getId());
 
         int totalPrice=0;
         int totalDiscountedPrice=0;

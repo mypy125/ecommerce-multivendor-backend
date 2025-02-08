@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This project is an e-commerce platform with functionality divided into three main roles: **users** (customers), **sellers**, and **administrators**. The backend handles all the business logic, data processing, storage, users authentication, order and product management, and integrations with external services like email notifications and payment gateways.
+This project is an e-commerce platform with functionality divided into three main roles: **user** (customers), **sellers**, and **administrators**. The backend handles all the business logic, data processing, storage, user authentication, order and product management, and integrations with external services like email notifications and payment gateways.
 
 ---
 
@@ -19,19 +19,19 @@ This project is an e-commerce platform with functionality divided into three mai
 - **Spring Boot**: Framework for building RESTful APIs.
 - **PostgreSQL**: Relational database for data storage.
 - **Spring Security**: For authentication, authorization, and API security.
-- **JWT (JSON Web Tokens)**: For securely transmitting users data between the client and server.
-- **Java Mail Sender**: For sending email notifications to users.
+- **JWT (JSON Web Tokens)**: For securely transmitting user data between the client and server.
+- **Java Mail Sender**: For sending email notifications to user.
 - **Spring Data JPA**: For simplified interaction with the database via ORM.
 - **Spring Batch** (optional): For batch data processing.
 
 ### 🗄️ Database
-- **PostgreSQL** is used for storing all data regarding users, orders, products, and transactions.
+- **PostgreSQL** is used for storing all data regarding user, orders, products, and transactions.
 
 ### 🔒 Security
 - **Spring Security** and **JWT** are used for securing the application (authentication and authorization).
 
 ### 📧 Notifications
-- **Java Mail Sender** is used for sending email notifications to users (e.g., order confirmation, password reset, etc.).
+- **Java Mail Sender** is used for sending email notifications to user (e.g., order confirmation, password reset, etc.).
 
 ---
 
@@ -39,7 +39,7 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ### 1. **User Management**
 - **Registration & Authentication**: User registration and JWT-based authentication.
-- **User Profiles**: Edit users details, manage delivery addresses.
+- **User Profiles**: Edit user details, manage delivery addresses.
 - **Order History**: Retrieve past orders, with filtering and pagination options.
 
 ### 2. **Order Management**
@@ -69,7 +69,7 @@ This project is an e-commerce platform with functionality divided into three mai
 - **Transaction History**: Track and manage all payment transactions in the system.
 
 ### 8. **Admin Panel**
-- **User & Seller Management**: Admins can manage users, sellers, and block/unblock accounts.
+- **User & Seller Management**: Admins can manage user, sellers, and block/unblock accounts.
 - **Product & Order Management**: Admins can modify order statuses and edit products.
 - **Content Management**: Admins can update content on the homepage, create promotions, and manage deals.
 
@@ -80,10 +80,10 @@ This project is an e-commerce platform with functionality divided into three mai
 ### Architecture
 
 - **Spring Boot** handles incoming HTTP requests, executes business logic, and interacts with the database.
-- **PostgreSQL** is used for storing data about users, orders, products, and transactions.
+- **PostgreSQL** is used for storing data about user, orders, products, and transactions.
 - **Spring Security** and **JWT** provide authentication and authorization for the application.
 - **Spring Data JPA** simplifies database interaction by automatically generating SQL queries for entity management.
-- **Java Mail Sender** sends email notifications to users, such as order confirmations and password resets.
+- **Java Mail Sender** sends email notifications to user, such as order confirmations and password resets.
 
 ### Frontend and Backend Interaction
 - The backend processes requests from the frontend (React) through the REST API.
@@ -94,7 +94,7 @@ This project is an e-commerce platform with functionality divided into three mai
 
 ## Scalability Opportunities
 
-- **Microservices**: The project can be split into microservices, such as order processing, users management, and product catalog services.
+- **Microservices**: The project can be split into microservices, such as order processing, user management, and product catalog services.
 - **Caching**: Implement caching with services like **Redis** to improve performance.
 - **Big Data Processing**: For reporting and analytics, **Spring Batch** can be used for batch data processing.
 

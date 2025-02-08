@@ -3,7 +3,7 @@ package com.mygitgor.ecommerce_multivendor.service.impl;
 import com.mygitgor.ecommerce_multivendor.config.PaymentConfig;
 import com.mygitgor.ecommerce_multivendor.domain.Order;
 import com.mygitgor.ecommerce_multivendor.domain.PaymentOrder;
-import com.mygitgor.ecommerce_multivendor.domain.Users;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentOrderStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentStatus;
 import com.mygitgor.ecommerce_multivendor.repository.OrderRepository;
@@ -32,12 +32,12 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
-    public PaymentOrder createOrder(Users users, Set<Order> orders) {
+    public PaymentOrder createOrder(User user, Set<Order> orders) {
         Long amount=orders.stream().mapToLong(Order::getTotalSellingPrice).sum();
 
         PaymentOrder paymentOrder= new PaymentOrder();
         paymentOrder.setAmount(amount);
-        paymentOrder.setUsers(users);
+        paymentOrder.setUser(user);
         paymentOrder.setOrders(orders);
 
         return paymentOrderRepository.save(paymentOrder);
@@ -86,12 +86,12 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentLink createRazorpayPaymentLink(Users users, Long amount, Long orderId) throws RazorpayException {
+    public PaymentLink createRazorpayPaymentLink(User user, Long amount, Long orderId) throws RazorpayException {
         amount=amount*100;
         try{
             RazorpayClient razorpay = new RazorpayClient(conf.getRazorpayApiKey(), conf.getRazorpayApiKey());
 
-            JSONObject paymentLinkRequest = getJsonObject(users, amount, orderId);
+            JSONObject paymentLinkRequest = getJsonObject(user, amount, orderId);
 
             PaymentLink paymentLink = razorpay.paymentLink.create(paymentLinkRequest);
 
@@ -106,14 +106,14 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    private static JSONObject getJsonObject(Users users, Long amount, Long orderId) {
+    private static JSONObject getJsonObject(User user, Long amount, Long orderId) {
         JSONObject paymentLinkRequest = new JSONObject();
         paymentLinkRequest.put("amount", amount);
         paymentLinkRequest.put("currency","USD");
 
         JSONObject customer = new JSONObject();
-        customer.put("name", users.getFullName());
-        customer.put("email", users.getEmail());
+        customer.put("name", user.getFullName());
+        customer.put("email", user.getEmail());
         paymentLinkRequest.put("customer",customer);
 
         JSONObject notify = new JSONObject();
@@ -126,7 +126,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public String createStripePaymentLink(Users users, Long amount, Long orderId) throws StripeException {
+    public String createStripePaymentLink(User user, Long amount, Long orderId) throws StripeException {
         Stripe.apiKey = conf.getStripeApiKey();
         SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType(
                         SessionCreateParams
