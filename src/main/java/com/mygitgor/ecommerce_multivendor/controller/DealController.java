@@ -29,7 +29,7 @@ public class DealController {
         return ResponseEntity.ok(deal);
     }
 
-    @PatchMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse>deleteDeals(@PathVariable Long id) throws Exception
     {
         dealService.deleteDeal(id);

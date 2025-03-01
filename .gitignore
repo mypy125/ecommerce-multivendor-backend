@@ -34,3 +34,5 @@ build/
 
 ### private doc###
 .env
+### git atributes ###
+.gitattributes
