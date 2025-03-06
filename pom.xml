@@ -36,7 +36,7 @@
 		<spring-dotenv.version>3.0.0</spring-dotenv.version>
 		<mockito-core.version>5.4.0</mockito-core.version>
 		<net-byte-boddy.version>1.15.11</net-byte-boddy.version>
-		<razorpay-java.version>1.4.8</razorpay-java.version>
+		<paypal-sdk-java.version>1.14.0</paypal-sdk-java.version>
 		<com-stripe.version>25.9.0</com-stripe.version>
 	</properties>
 	<dependencies>
@@ -80,9 +80,9 @@
 
 		<!-- https://mvnrepository.com/artifact/com.razorpay/razorpay-java__and__stripe-java -->
 		<dependency>
-			<groupId>com.razorpay</groupId>
-			<artifactId>razorpay-java</artifactId>
-			<version>${razorpay-java.version}</version>
+			<groupId>com.paypal.sdk</groupId>
+			<artifactId>rest-api-sdk</artifactId>
+			<version>${paypal-sdk-java.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.stripe</groupId>

@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 public class PaymentConfig {
     private String stripeApiKey;
     private String razorpayApiKey;
+    private String paypalClientId;
+    private String paypalClientSecret;
+    private String paypalMode;
 //    private String idramApiKey;
 //    private String idramApiUrl;
 //    private String easypayApiUrl;

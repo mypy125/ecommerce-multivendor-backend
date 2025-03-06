@@ -5,7 +5,8 @@ import com.mygitgor.ecommerce_multivendor.domain.*;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentMethod;
 import com.mygitgor.ecommerce_multivendor.repository.PaymentOrderRepository;
 import com.mygitgor.ecommerce_multivendor.service.*;
-import com.razorpay.PaymentLink;
+import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,37 +28,35 @@ public class OrderController {
     private final PaymentOrderRepository paymentOrderRepository;
 
     @PostMapping
-    public ResponseEntity<PaymentLinkResponse>createOrderHandler(@RequestBody Address shippingAddress,
-                                                                 @RequestParam PaymentMethod paymentMethod,
-                                                                 @RequestHeader("Authorization")
-                                                                    String jwt) throws Exception {
+    public ResponseEntity<PaymentLinkResponse> createOrderHandler(@RequestBody Address shippingAddress,
+                                                                  @RequestParam PaymentMethod paymentMethod,
+                                                                  @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findByJwtToken(jwt);
         Cart cart = cartService.findUserCart(user);
-        Set<Order>orders=orderService.createOrder(user,shippingAddress,cart);
+        Set<Order> orders = orderService.createOrder(user, shippingAddress, cart);
 
-        PaymentOrder paymentOrder = paymentService.createOrder(user,orders);
+        PaymentOrder paymentOrder = paymentService.createOrder(user, orders);
 
         PaymentLinkResponse res = new PaymentLinkResponse();
-        if(paymentMethod.equals(PaymentMethod.RAZORPAY)){
-            PaymentLink payment = paymentService.createRazorpayPaymentLink(
-                    user, paymentOrder.getAmount(), paymentOrder.getId()
-            );
-            String paymentUrl=payment.get("short_url");
-            String paymentId=payment.get("id");
-
+        if (paymentMethod.equals(PaymentMethod.PAYPAL)) {
+            Payment payment = paymentService.createPaypalPaymentLink(user, paymentOrder.getAmount(), paymentOrder.getId());
+            String paymentUrl = null;
+            for (Links link : payment.getLinks()) {
+                if (link.getRel().equalsIgnoreCase("approval_url")) {
+                    paymentUrl = link.getHref();
+                    break;
+                }
+            }
             res.setPayment_link_url(paymentUrl);
-            paymentOrder.setPaymentLinkId(paymentId);
+            paymentOrder.setPaymentLinkId(payment.getId());
 
             paymentOrderRepository.save(paymentOrder);
-        }else {
-            String paymentUrl=paymentService.createStripePaymentLink(
-                    user, paymentOrder.getAmount(), paymentOrder.getId()
-            );
+        } else {
+            String paymentUrl = paymentService.createStripePaymentLink(user, paymentOrder.getAmount(), paymentOrder.getId());
             res.setPayment_link_url(paymentUrl);
         }
 
-        return new ResponseEntity<>(res,HttpStatus.OK);
-
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @GetMapping("/user")

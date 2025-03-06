@@ -46,6 +46,12 @@ spring:
     api:
       key: ${STRIPE_API_KEY}
 
+  paypal:
+    client:
+      id: ${PAYPAL_CLIENT_ID}
+      secret: ${PAYPAL_CLIENT_SECRET}
+      method: ${PAYPAL_MODE}
+
   razorpay:
     api:
       key: ${RAZORPAY_API_KEY}
