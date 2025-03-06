@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "payment")
 public class PaymentConfig {
     private String stripeApiKey;
-    private String razorpayApiKey;
     private String paypalClientId;
     private String paypalClientSecret;
     private String paypalMode;
