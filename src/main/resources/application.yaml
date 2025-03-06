@@ -62,6 +62,10 @@ spring:
       url: ${EASYPAY_API_URL}
       key: ${EASYPAY_API_KEY}
 
+jwt:
+  secretKey: ${JWT_SECRET_KEY}
+  header: ${JWT_HEADER}
+
 logging:
   level:
     org.springframework.boot.context.properties: DEBUG

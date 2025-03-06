@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.config;
 
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,9 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class AppConfig {
+    private final JwtProps jwtProps;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
@@ -31,7 +34,7 @@ public class AppConfig {
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/api/products/*/reviews").permitAll()
                 .anyRequest().permitAll()
-        ).addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class);
+        ).addFilterBefore(new JwtTokenValidator(jwtProps), BasicAuthenticationFilter.class);
 
         return http.build();
     }
