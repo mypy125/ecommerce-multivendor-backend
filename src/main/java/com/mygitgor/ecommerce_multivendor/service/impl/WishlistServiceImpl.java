@@ -8,6 +8,8 @@ import com.mygitgor.ecommerce_multivendor.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class WishlistServiceImpl implements WishlistService {
@@ -22,11 +24,8 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public Wishlist getWishlistByUserId(User user) {
-        Wishlist wishlist = wishlistRepository.findByUsersId(user.getId());
-        if(wishlist==null){
-            wishlist=createWishlist(user);
-        }
-        return wishlist;
+        Optional<Wishlist> wishlist = wishlistRepository.findByUserId(user.getId());
+        return wishlist.orElseGet(() -> createWishlist(user));
     }
 
     @Override
