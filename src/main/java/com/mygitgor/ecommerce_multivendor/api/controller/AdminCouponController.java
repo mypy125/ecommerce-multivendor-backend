@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.CouponEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.CartService;
 import com.mygitgor.ecommerce_multivendor.application.service.CouponService;
 import com.mygitgor.ecommerce_multivendor.application.service.UserService;
@@ -21,15 +21,15 @@ public class AdminCouponController {
     private final CartService cartService;
 
     @PostMapping("/apply")
-    public ResponseEntity<Cart>applyCoupon(@RequestParam String apply,
-                                           @RequestParam String code,
-                                           @RequestParam double orderValue,
-                                           @RequestHeader("Authorization")
+    public ResponseEntity<CartEntity>applyCoupon(@RequestParam String apply,
+                                                 @RequestParam String code,
+                                                 @RequestParam double orderValue,
+                                                 @RequestHeader("Authorization")
                                                String jwt) throws Exception
     {
-        UserEntity user = userService.findByJwtToken(jwt);
+        User user = userService.findByJwtToken(jwt);
         boolean isApply = Boolean.parseBoolean(apply);
-        Cart cart = isApply ? couponService.applyCoupon(code, orderValue, user)
+        CartEntity cart = isApply ? couponService.applyCoupon(code, orderValue, user)
                 : couponService.removeCoupon(code, user);
         return ResponseEntity.ok(cart);
     }

@@ -10,10 +10,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "product")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Product extends BaseProductEntity {
+public class ProductEntity extends BaseProductEntity {
     private int mrpPrice;
     private int sellingPrice;
     private int discountPercent;
@@ -26,14 +27,14 @@ public class Product extends BaseProductEntity {
     private int numRatings;
 
     @ManyToOne
-    private Category category;
+    private CategoryEntity category;
 
     @ManyToOne
-    private Seller seller;
+    private SellerEntity seller;
 
 //    @ElementCollection
     private String size;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review>reviews = new ArrayList<>();
+    private List<ReviewEntity>reviews = new ArrayList<>();
 }

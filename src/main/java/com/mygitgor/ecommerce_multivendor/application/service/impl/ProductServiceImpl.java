@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateProductRequest;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Category;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CategoryEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CategoryJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.ProductJpaRepository;
@@ -29,27 +29,27 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryJpaRepository categoryRepository;
 
     @Override
-    public Product createProduct(CreateProductRequest req, Seller seller) throws IllegalAccessException {
-        Category category1=categoryRepository.findByCategoryId(req.getCategory());
+    public ProductEntity createProduct(CreateProductRequest req, SellerEntity seller) throws IllegalAccessException {
+        CategoryEntity category1=categoryRepository.findByCategoryId(req.getCategory());
         if(category1==null){
-            Category category = new Category();
+            CategoryEntity category = new CategoryEntity();
             category.setCategoryId(req.getCategory());
             category.setLevel(1);
             category1=categoryRepository.save(category);
         }
 
-        Category category2=categoryRepository.findByCategoryId(req.getCategory2());
+        CategoryEntity category2=categoryRepository.findByCategoryId(req.getCategory2());
         if(category2==null){
-            Category category = new Category();
+            CategoryEntity category = new CategoryEntity();
             category.setCategoryId(req.getCategory2());
             category.setLevel(2);
             category.setParentCategory(category1);
             category2=categoryRepository.save(category);
         }
 
-        Category category3=categoryRepository.findByCategoryId(req.getCategory3());
+        CategoryEntity category3=categoryRepository.findByCategoryId(req.getCategory3());
         if(category3==null){
-            Category category = new Category();
+            CategoryEntity category = new CategoryEntity();
             category.setCategoryId(req.getCategory3());
             category.setLevel(3);
             category.setParentCategory(category2);
@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
         int discountPercentage=calculateDiscountPercentage(req.getMrpPrice(), req.getSellingPrice());
 
-        Product product = new Product();
+        ProductEntity product = new ProductEntity();
         product.setSeller(seller);
         product.setCategory(category3);
         product.setDescription(req.getDescription());
@@ -85,45 +85,45 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) throws ProductException {
-        Product product = findProductById(productId);
+        ProductEntity product = findProductById(productId);
         productRepository.delete(product);
     }
 
     @Override
-    public Product updateProduct(Long productId, Product product) throws ProductException {
+    public ProductEntity updateProduct(Long productId, ProductEntity product) throws ProductException {
         findProductById(productId);
         product.setId(productId);
         return productRepository.save(product);
     }
 
     @Override
-    public Product findProductById(Long productId) throws ProductException {
+    public ProductEntity findProductById(Long productId) throws ProductException {
         return productRepository.findById(productId)
                 .orElseThrow(()-> new ProductException("product not found with id "+productId));
     }
 
     @Override
-    public List<Product> searchProduct(String query) {
+    public List<ProductEntity> searchProduct(String query) {
         return productRepository.searchProduct(query);
     }
 
     @Override
-    public Page<Product> getAllProducts(String category,
-                                        String brand,
-                                        String colors,
-                                        String sizes,
-                                        Integer minPrice,
-                                        Integer maxPrice,
-                                        Integer minDiscount,
-                                        String sort,
-                                        String stock,
-                                        Integer pageNumber)
+    public Page<ProductEntity> getAllProducts(String category,
+                                              String brand,
+                                              String colors,
+                                              String sizes,
+                                              Integer minPrice,
+                                              Integer maxPrice,
+                                              Integer minDiscount,
+                                              String sort,
+                                              String stock,
+                                              Integer pageNumber)
     {
 
-        Specification<Product> spec=(root,query, criteriaBuilder)->{
+        Specification<ProductEntity> spec=(root, query, criteriaBuilder)->{
             List<Predicate>predicates=new ArrayList<>();
             if(category != null){
-                Join<Product,Category>categoryJoin=root.join("category");
+                Join<ProductEntity, CategoryEntity>categoryJoin=root.join("category");
                 predicates.add(criteriaBuilder.equal(categoryJoin.get("categoryId"),category));
             }
 
@@ -164,7 +164,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductBySellerId(Long sellerId) {
+    public List<ProductEntity> getProductBySellerId(Long sellerId) {
         return productRepository.findBySellerId(sellerId);
     }
 }

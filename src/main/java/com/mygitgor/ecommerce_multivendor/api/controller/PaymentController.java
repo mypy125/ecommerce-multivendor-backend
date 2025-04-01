@@ -2,8 +2,8 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.application.service.*;
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
-import com.mygitgor.ecommerce_multivendor.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,17 +25,17 @@ public class PaymentController {
                                                             @RequestHeader("Authorization")
                                                                 String jwt) throws Exception
     {
-        UserEntity user = userService.findByJwtToken(jwt);
-        PaymentOrder paymentOrder = paymentService.getPaymentOrderByPaymentId(paymentLinkId);
+        User user = userService.findByJwtToken(jwt);
+        PaymentOrderEntity paymentOrder = paymentService.getPaymentOrderByPaymentId(paymentLinkId);
 
         boolean paymentSuccess = paymentService.proceedPaymentOrder(
                 paymentOrder,paymentId,paymentLinkId
         );
         if(paymentSuccess){
-            for(Order order: paymentOrder.getOrders()){
+            for(OrderEntity order: paymentOrder.getOrders()){
                 transactionService.createTransaction(order);
-                Seller seller = sellerService.getSellerById(order.getSellerId());
-                SellerReport report = sellerReportService.getSellerReport(seller);
+                SellerEntity seller = sellerService.getSellerById(order.getSellerId());
+                SellerReportEntity report = sellerReportService.getSellerReport(seller);
                 report.setTotalOrders(report.getTotalOrders()+1);
                 report.setTotalEarnings(report.getTotalEarnings()+ order.getTotalSellingPrice());
                 report.setTotalSales(report.getTotalSales()+order.getOrderItems().size());

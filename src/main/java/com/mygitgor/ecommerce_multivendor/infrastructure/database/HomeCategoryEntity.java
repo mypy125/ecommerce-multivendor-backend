@@ -1,28 +1,21 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database;
 
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.abstraction.BaseEntity;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import com.mygitgor.ecommerce_multivendor.domain.costant.HomeCategorySection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "home_category")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Category extends BaseEntity {
+public class HomeCategoryEntity extends BaseEntity {
     private String name;
-
-    @Column(unique = true)
-    @NotNull
+    private String image;
     private String categoryId;
-
-    @ManyToOne
-    private Category parentCategory;
-
-    @NotNull
-    private Integer level;
-
-
+    private HomeCategorySection section;
 }

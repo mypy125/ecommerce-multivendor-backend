@@ -2,11 +2,13 @@ package com.mygitgor.ecommerce_multivendor.infrastructure.database;
 
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.abstraction.BaseEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "address")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)

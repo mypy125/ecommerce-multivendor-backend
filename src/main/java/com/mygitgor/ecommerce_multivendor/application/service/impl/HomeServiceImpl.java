@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Deal;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.DealEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.Home;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategory;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategoryEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.HomeCategorySection;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.DealJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.HomeService;
@@ -19,29 +19,29 @@ public class HomeServiceImpl implements HomeService {
     private final DealJpaRepository dealRepository;
 
     @Override
-    public Home createHomePageData(List<HomeCategory> allCategories) {
+    public Home createHomePageData(List<HomeCategoryEntity> allCategories) {
 
-        List<HomeCategory> gridCategories = allCategories.stream()
+        List<HomeCategoryEntity> gridCategories = allCategories.stream()
                .filter(category -> category.getSection() == HomeCategorySection.GRID)
                .toList();
 
-        List<HomeCategory> shopByCategories = allCategories.stream()
+        List<HomeCategoryEntity> shopByCategories = allCategories.stream()
                .filter(category -> category.getSection() == HomeCategorySection.SHOP_BY_CATEGORIES)
                .toList();
 
-        List<HomeCategory> electronicCategories = allCategories.stream()
+        List<HomeCategoryEntity> electronicCategories = allCategories.stream()
                .filter(category -> category.getSection() == HomeCategorySection.ELECTRIC_CATEGORIES)
                .toList();
 
-        List<HomeCategory> dealCategories = allCategories.stream()
+        List<HomeCategoryEntity> dealCategories = allCategories.stream()
                 .filter(category -> category.getSection() == HomeCategorySection.DEALS)
                 .toList();
 
-        List<Deal> createDeals = new ArrayList<>();
+        List<DealEntity> createDeals = new ArrayList<>();
         if (dealRepository.findAll().isEmpty()) {
-            List<Deal> deals = allCategories.stream()
+            List<DealEntity> deals = allCategories.stream()
                     .filter(category -> category.getSection() == HomeCategorySection.DEALS)
-                    .map(category -> new Deal(10, category))
+                    .map(category -> new DealEntity(10, category))
                     .collect(Collectors.toList());
 
             createDeals = dealRepository.saveAll(deals);

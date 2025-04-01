@@ -4,10 +4,10 @@ import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.SignupRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCode;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCodeEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerJpaRepository;
@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String createUser(SignupRequest req) throws Exception {
-        VerificationCode verificationCode = verificationCodeRepository.findByEmail(req.getEmail());
+        VerificationCodeEntity verificationCode = verificationCodeRepository.findByEmail(req.getEmail());
         if(verificationCode == null || !verificationCode.getOtp().equals(req.getOtp())){
             throw new Exception("wrong otp...");
         }
@@ -61,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
             createUser.setPassword(passwordEncoder.encode(req.getOtp()));
             user = userRepository.save(createUser);
 
-            Cart cart = new Cart();
+            CartEntity cart = new CartEntity();
             cart.setUser(user);
             cartRepository.save(cart);
         }
@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
             email = email.substring(SINGING_PREFIX.length());
 
             if(role.equals(USER_ROLE.ROLE_SELLER)){
-                Seller seller = sellerRepository.findByEmail(email);
+                SellerEntity seller = sellerRepository.findByEmail(email);
                 if(seller==null){
                     throw new Exception("seller not exist with provided email");
                 }
@@ -95,14 +95,14 @@ public class AuthServiceImpl implements AuthService {
             }
 
         }
-        VerificationCode isExist= verificationCodeRepository.findByEmail(email);
+        VerificationCodeEntity isExist= verificationCodeRepository.findByEmail(email);
         if(isExist != null){
             verificationCodeRepository.delete(isExist);
         }
 
         String otp = OtpUtil.generateOtp();
 
-        VerificationCode verificationCode = new VerificationCode();
+        VerificationCodeEntity verificationCode = new VerificationCodeEntity();
         verificationCode.setOtp(otp);
         verificationCode.setEmail(email);
         verificationCodeRepository.save(verificationCode);
@@ -145,7 +145,7 @@ public class AuthServiceImpl implements AuthService {
             throw new BadCredentialsException("invalid username");
         }
 
-        VerificationCode verificationCode = verificationCodeRepository.findByEmail(username);
+        VerificationCodeEntity verificationCode = verificationCodeRepository.findByEmail(username);
         if(verificationCode==null || !verificationCode.getOtp().equals(otp)){
             throw new Exception("wrong otp");
         }

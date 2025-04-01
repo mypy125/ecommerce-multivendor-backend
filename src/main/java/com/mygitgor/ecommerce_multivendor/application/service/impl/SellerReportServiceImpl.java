@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReport;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReportEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerReportJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerReportService;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +13,11 @@ public class SellerReportServiceImpl implements SellerReportService {
     private final SellerReportJpaRepository sellerReportRepository;
 
     @Override
-    public SellerReport getSellerReport(Seller seller) {
-        SellerReport sellerReport = sellerReportRepository.findBySellerId(seller.getId());
+    public SellerReportEntity getSellerReport(SellerEntity seller) {
+        SellerReportEntity sellerReport = sellerReportRepository.findBySellerId(seller.getId());
 
         if(sellerReport==null){
-            SellerReport newReport = new SellerReport();
+            SellerReportEntity newReport = new SellerReportEntity();
             newReport.setSeller(seller);
             return sellerReportRepository.save(newReport);
         }
@@ -26,7 +26,7 @@ public class SellerReportServiceImpl implements SellerReportService {
     }
 
     @Override
-    public SellerReport updateSellerReport(SellerReport sellerReport) {
+    public SellerReportEntity updateSellerReport(SellerReportEntity sellerReport) {
         return sellerReportRepository.save(sellerReport);
     }
 }

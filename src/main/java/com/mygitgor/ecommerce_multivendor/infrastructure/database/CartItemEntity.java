@@ -2,31 +2,30 @@ package com.mygitgor.ecommerce_multivendor.infrastructure.database;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.abstraction.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Table(name = "cart_item")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class OrderItem extends BaseEntity {
+public class CartItemEntity extends BaseEntity {
 
+    @ManyToOne
     @JsonIgnore
-    @ManyToOne
-    private Order order;
+    private CartEntity cart;
 
-    @ManyToOne
-    private Product product;
+    @OneToOne
+    private ProductEntity product;
 
     private String size;
-    private int quantity;
+    private int quantity = 1;
 
     private Integer mrpPrice;
     private Integer sellingPrice;
 
     private Long userId;
-
 }

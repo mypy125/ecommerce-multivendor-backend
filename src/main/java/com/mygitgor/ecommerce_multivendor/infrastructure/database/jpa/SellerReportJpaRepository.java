@@ -1,10 +1,10 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReport;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReportEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SellerReportJpaRepository extends JpaRepository<SellerReport, Long> {
-    SellerReport findBySellerId(Long sellerId);
+public interface SellerReportJpaRepository extends JpaRepository<SellerReportEntity, Long> {
+    SellerReportEntity findBySellerId(Long sellerId);
 }

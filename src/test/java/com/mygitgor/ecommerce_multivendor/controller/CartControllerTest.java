@@ -3,9 +3,9 @@ package com.mygitgor.ecommerce_multivendor.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygitgor.ecommerce_multivendor.api.controller.CartController;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.AddItemRequest;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.CartItemService;
 import com.mygitgor.ecommerce_multivendor.application.service.CartService;
@@ -55,8 +55,8 @@ class CartControllerTest {
     private CartController cartController;
 
     private UserEntity user;
-    private Product product;
-    private CartItem cartItem;
+    private ProductEntity product;
+    private CartItemEntity cartItem;
     private AddItemRequest addItemRequest;
 
     @BeforeEach
@@ -67,11 +67,11 @@ class CartControllerTest {
         user.setId(1L);
         user.setFullName("Test UserEntity");
 
-        product = new Product();
+        product = new ProductEntity();
         product.setId(1L);
-        product.setTitle("Test Product");
+        product.setTitle("Test ProductEntity");
 
-        cartItem = new CartItem();
+        cartItem = new CartItemEntity();
         cartItem.setId(1L);
         cartItem.setProduct(product);
         cartItem.setQuantity(2);
@@ -109,7 +109,7 @@ class CartControllerTest {
 
     @Test
     void updateCartItem_shouldReturnUpdatedCartItem() throws Exception {
-        CartItem updatedCartItem = new CartItem();
+        CartItemEntity updatedCartItem = new CartItemEntity();
         updatedCartItem.setId(1L);
         updatedCartItem.setProduct(product);
         updatedCartItem.setQuantity(3);
@@ -128,7 +128,7 @@ class CartControllerTest {
 
     @Test
     void getUserCart_shouldReturnCart() throws Exception {
-        Cart cart = new Cart();
+        CartEntity cart = new CartEntity();
         cart.setId(1L);
 
         when(userService.findByJwtToken("valid-jwt")).thenReturn(user);

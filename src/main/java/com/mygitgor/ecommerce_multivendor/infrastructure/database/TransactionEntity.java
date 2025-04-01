@@ -4,6 +4,7 @@ import com.mygitgor.ecommerce_multivendor.infrastructure.database.abstraction.Ba
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,19 +12,20 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Table(name = "transaction")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Transaction extends BaseEntity {
+public class TransactionEntity extends BaseEntity {
 
     @ManyToOne
     private UserEntity customer;
 
     @OneToOne
-    private Order order;
+    private OrderEntity order;
 
     @ManyToOne
-    private Seller seller;
+    private SellerEntity seller;
 
     private LocalDateTime date = LocalDateTime.now();
 }

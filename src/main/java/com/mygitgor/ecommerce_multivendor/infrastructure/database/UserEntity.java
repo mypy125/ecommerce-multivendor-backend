@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)

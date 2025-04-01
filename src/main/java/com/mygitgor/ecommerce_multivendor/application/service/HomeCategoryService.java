@@ -1,12 +1,12 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategory;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategoryEntity;
 
 import java.util.List;
 
 public interface HomeCategoryService {
-    HomeCategory createHomeCategory(HomeCategory homeCategory);
-    List<HomeCategory>createCategories(List<HomeCategory> homeCategories);
-    HomeCategory updateHomeCategory(HomeCategory homeCategory, Long id) throws Exception;
-    List<HomeCategory>getAllHomeCategories();
+    HomeCategoryEntity createHomeCategory(HomeCategoryEntity homeCategory);
+    List<HomeCategoryEntity>createCategories(List<HomeCategoryEntity> homeCategories);
+    HomeCategoryEntity updateHomeCategory(HomeCategoryEntity homeCategory, Long id) throws Exception;
+    List<HomeCategoryEntity>getAllHomeCategories();
 }

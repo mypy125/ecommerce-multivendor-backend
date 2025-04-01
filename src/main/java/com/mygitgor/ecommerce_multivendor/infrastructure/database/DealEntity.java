@@ -7,12 +7,13 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "deal")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Deal extends BaseEntity{
+public class DealEntity extends BaseEntity{
     private Integer discount;
 
     @OneToOne
-    private HomeCategory category;
+    private HomeCategoryEntity category;
 }

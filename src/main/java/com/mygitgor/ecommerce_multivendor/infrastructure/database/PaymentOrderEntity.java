@@ -6,6 +6,7 @@ import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentOrderStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.util.HashSet;
@@ -14,10 +15,11 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "payment_order")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class PaymentOrder extends BaseEntity {
+public class PaymentOrderEntity extends BaseEntity {
     private Long amount;
 
     private PaymentOrderStatus status = PaymentOrderStatus.PENDING;
@@ -29,6 +31,6 @@ public class PaymentOrder extends BaseEntity {
     private UserEntity user;
 
     @OneToMany
-    private Set<Order> orders = new HashSet<>();
+    private Set<OrderEntity> orders = new HashSet<>();
 
 }

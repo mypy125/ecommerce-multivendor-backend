@@ -1,12 +1,12 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Wishlist;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.WishlistEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface WishlistJpaRepository extends JpaRepository<Wishlist,Long> {
-    Optional<Wishlist> findByUserId(Long userId);
+public interface WishlistJpaRepository extends JpaRepository<WishlistEntity,Long> {
+    Optional<WishlistEntity> findByUserId(Long userId);
 }

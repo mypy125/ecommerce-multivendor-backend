@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,11 +37,11 @@ class ProductControllerTest {
     @MockitoBean
     private ProductService productService;
 
-    private Product product;
+    private ProductEntity product;
 
     @BeforeEach
     void setUp() {
-        product = new Product();
+        product = new ProductEntity();
         product.setId(1L);
         product.setMrpPrice(1000);
         product.setSellingPrice(800);
@@ -70,7 +70,7 @@ class ProductControllerTest {
     @Test
     void getProductById_shouldReturn404WhenProductNotFound() throws Exception {
         Mockito.when(productService.findProductById(1L))
-                .thenThrow(new ProductException("Product not found"));
+                .thenThrow(new ProductException("ProductEntity not found"));
 
         mockMvc.perform(get("/products/1"))
                 .andExpect(status().isNotFound());
@@ -78,7 +78,7 @@ class ProductControllerTest {
 
     @Test
     void searchProduct_shouldReturnProducts() throws Exception {
-        List<Product> products = Collections.singletonList(product);
+        List<ProductEntity> products = Collections.singletonList(product);
         Mockito.when(productService.searchProduct(anyString())).thenReturn(products);
 
         mockMvc.perform(get("/products/search")
@@ -91,7 +91,7 @@ class ProductControllerTest {
 
     @Test
     void getAllProducts_shouldReturnPagedProducts() throws Exception {
-        Page<Product> productPage = new PageImpl<>(Collections.singletonList(product),
+        Page<ProductEntity> productPage = new PageImpl<>(Collections.singletonList(product),
                 PageRequest.of(0, 10),
                 1);
         Mockito.when(productService.getAllProducts(any(), any(), any(), any(), any(), any(),

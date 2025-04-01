@@ -1,11 +1,11 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReport;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCode;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReportEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCodeEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.api.exception.SellerException;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.VerificationCodeJpaRepository;
@@ -43,27 +43,27 @@ public class SellerController {
     }
 
     @PatchMapping("/verify/{otp}")
-    public ResponseEntity<Seller> verifySellerEmail(@PathVariable String otp) throws Exception
+    public ResponseEntity<SellerEntity> verifySellerEmail(@PathVariable String otp) throws Exception
     {
-        VerificationCode verificationCode = verificationCodeRepository.findByOtp(otp);
+        VerificationCodeEntity verificationCode = verificationCodeRepository.findByOtp(otp);
         if(verificationCode == null || !verificationCode.getOtp().equals(otp)){
             throw new Exception("wrong otp...");
         }
 
-        Seller seller = sellerService.verifyEmail(verificationCode.getEmail(), otp);
+        SellerEntity seller = sellerService.verifyEmail(verificationCode.getEmail(), otp);
 
         return new ResponseEntity<>(seller, HttpStatus.OK);
 
     }
 
     @PostMapping
-    public ResponseEntity<Seller> createSeller(@RequestBody Seller seller) throws Exception
+    public ResponseEntity<SellerEntity> createSeller(@RequestBody SellerEntity seller) throws Exception
     {
-        Seller savedSeller = sellerService.createSeller(seller);
+        SellerEntity savedSeller = sellerService.createSeller(seller);
 
         String otp = OtpUtil.generateOtp();
 
-        VerificationCode verificationCode = new VerificationCode();
+        VerificationCodeEntity verificationCode = new VerificationCodeEntity();
         verificationCode.setOtp(otp);
         verificationCode.setEmail(seller.getEmail());
         verificationCodeRepository.save(verificationCode);
@@ -79,43 +79,43 @@ public class SellerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Seller>getSellerById(@PathVariable Long id) throws SellerException
+    public ResponseEntity<SellerEntity>getSellerById(@PathVariable Long id) throws SellerException
     {
-        Seller seller = sellerService.getSellerById(id);
+        SellerEntity seller = sellerService.getSellerById(id);
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<Seller>getSellerByJwt(@RequestHeader("Authorization")
+    public ResponseEntity<SellerEntity>getSellerByJwt(@RequestHeader("Authorization")
                                                     String jwt) throws Exception
     {
-        Seller seller = sellerService.getSellerProfile(jwt);
+        SellerEntity seller = sellerService.getSellerProfile(jwt);
         return new ResponseEntity<>(seller, HttpStatus.OK);
     }
 
     @GetMapping("/report")
-    public ResponseEntity<SellerReport>getSellerReport(@RequestHeader("Authorization")
+    public ResponseEntity<SellerReportEntity>getSellerReport(@RequestHeader("Authorization")
                                                     String jwt) throws Exception
     {
-        Seller seller = sellerService.getSellerProfile(jwt);
-        SellerReport report = sellerReportService.getSellerReport(seller);
+        SellerEntity seller = sellerService.getSellerProfile(jwt);
+        SellerReportEntity report = sellerReportService.getSellerReport(seller);
         return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Seller>>getAllSeller(@RequestParam(required = false)
+    public ResponseEntity<List<SellerEntity>>getAllSeller(@RequestParam(required = false)
                                                         AccountStatus status)
     {
-        List<Seller>sellers=sellerService.getAllSellers(status);
+        List<SellerEntity>sellers=sellerService.getAllSellers(status);
         return ResponseEntity.ok(sellers);
     }
 
     @PatchMapping()
-    public ResponseEntity<Seller>updateSeller(@RequestHeader("Authorization") String jwt,
-                                              @RequestBody Seller seller) throws Exception
+    public ResponseEntity<SellerEntity>updateSeller(@RequestHeader("Authorization") String jwt,
+                                                    @RequestBody SellerEntity seller) throws Exception
     {
-        Seller profile = sellerService.getSellerProfile(jwt);
-        Seller updateSeller = sellerService.updateSeller(profile.getId(), seller);
+        SellerEntity profile = sellerService.getSellerProfile(jwt);
+        SellerEntity updateSeller = sellerService.updateSeller(profile.getId(), seller);
         return ResponseEntity.ok(updateSeller);
     }
 

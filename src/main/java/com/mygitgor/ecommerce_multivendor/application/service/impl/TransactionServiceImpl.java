@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Order;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Transaction;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.TransactionEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.TransactionJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.TransactionService;
@@ -18,10 +18,10 @@ public class TransactionServiceImpl implements TransactionService {
     private final SellerJpaRepository sellerRepository;
 
     @Override
-    public Transaction createTransaction(Order order) {
-        Seller seller = sellerRepository.findById(order.getSellerId()).get();
+    public TransactionEntity createTransaction(OrderEntity order) {
+        SellerEntity seller = sellerRepository.findById(order.getSellerId()).get();
 
-        Transaction transaction = new Transaction();
+        TransactionEntity transaction = new TransactionEntity();
         transaction.setSeller(seller);
         transaction.setCustomer(order.getUser());
         transaction.setOrder(order);
@@ -30,12 +30,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactionsBySellerId(Seller seller) {
+    public List<TransactionEntity> getTransactionsBySellerId(SellerEntity seller) {
         return transactionRepository.findBySellerId(seller.getId());
     }
 
     @Override
-    public List<Transaction> getAllTransactions() {
+    public List<TransactionEntity> getAllTransactions() {
         return transactionRepository.findAll();
     }
 }

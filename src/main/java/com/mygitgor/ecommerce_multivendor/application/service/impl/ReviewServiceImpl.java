@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateReviewRequest;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Review;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ReviewEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.ReviewJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +17,8 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewJpaRepository reviewRepository;
     
     @Override
-    public Review createReview(CreateReviewRequest request, UserEntity user, Product product) {
-        Review review = new Review();
+    public ReviewEntity createReview(CreateReviewRequest request, User user, ProductEntity product) {
+        ReviewEntity review = new ReviewEntity();
         review.setUser(user);
         review.setProduct(product);
         review.setReviewText(request.getReviewText());
@@ -30,13 +30,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getReviewByProductId(Long productId) {
+    public List<ReviewEntity> getReviewByProductId(Long productId) {
         return reviewRepository.findByProductId(productId);
     }
 
     @Override
-    public Review updateReview(Long reviewId, String reviewText, double rating, Long userId) throws Exception {
-        Review review = getReviewById(reviewId);
+    public ReviewEntity updateReview(Long reviewId, String reviewText, double rating, Long userId) throws Exception {
+        ReviewEntity review = getReviewById(reviewId);
         if(review.getUser().getId().equals(userId)){
             review.setReviewText(reviewText);
             review.setRating(rating);
@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void deleteReview(Long reviewId, Long userId) throws Exception {
-        Review review = getReviewById(reviewId);
+        ReviewEntity review = getReviewById(reviewId);
         if(review.getUser().getId().equals(userId)){
             throw new Exception("you can't delete this review");
         }
@@ -55,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review getReviewById(Long reviewId) throws Exception {
+    public ReviewEntity getReviewById(Long reviewId) throws Exception {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(()-> new Exception("review not found"));
     }

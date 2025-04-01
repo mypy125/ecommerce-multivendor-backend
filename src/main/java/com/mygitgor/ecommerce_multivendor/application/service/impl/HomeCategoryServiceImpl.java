@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategory;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategoryEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.HomeCategoryJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.HomeCategoryService;
 import lombok.AllArgsConstructor;
@@ -14,12 +14,12 @@ public class HomeCategoryServiceImpl implements HomeCategoryService {
     private final HomeCategoryJpaRepository homeCategoryRepository;
 
     @Override
-    public HomeCategory createHomeCategory(HomeCategory homeCategory) {
+    public HomeCategoryEntity createHomeCategory(HomeCategoryEntity homeCategory) {
         return homeCategoryRepository.save(homeCategory);
     }
 
     @Override
-    public List<HomeCategory> createCategories(List<HomeCategory> homeCategories) {
+    public List<HomeCategoryEntity> createCategories(List<HomeCategoryEntity> homeCategories) {
         if(homeCategoryRepository.findAll().isEmpty()){
             return homeCategoryRepository.saveAll(homeCategories);
         }
@@ -27,8 +27,8 @@ public class HomeCategoryServiceImpl implements HomeCategoryService {
     }
 
     @Override
-    public HomeCategory updateHomeCategory(HomeCategory homeCategory, Long id) throws Exception {
-        HomeCategory existCategory = homeCategoryRepository.findById(id)
+    public HomeCategoryEntity updateHomeCategory(HomeCategoryEntity homeCategory, Long id) throws Exception {
+        HomeCategoryEntity existCategory = homeCategoryRepository.findById(id)
                 .orElseThrow(()->new Exception("category not found"));
 
         if(homeCategory.getImage()!=null){
@@ -41,7 +41,7 @@ public class HomeCategoryServiceImpl implements HomeCategoryService {
     }
 
     @Override
-    public List<HomeCategory> getAllHomeCategories() {
+    public List<HomeCategoryEntity> getAllHomeCategories() {
         return homeCategoryRepository.findAll();
     }
 }

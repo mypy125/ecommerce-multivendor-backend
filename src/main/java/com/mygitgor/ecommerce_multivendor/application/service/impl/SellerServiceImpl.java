@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.AddressEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.api.exception.SellerException;
@@ -24,20 +24,20 @@ public class SellerServiceImpl implements SellerService {
     private final AddressJpaRepository addressRepository;
 
     @Override
-    public Seller getSellerProfile(String jwt) throws Exception {
+    public SellerEntity getSellerProfile(String jwt) throws Exception {
         String email = jwtProvider.getEmailFromJwtToken(jwt);
         return this.getSellerByEmail(email);
     }
 
     @Override
-    public Seller createSeller(Seller seller) throws Exception {
-        Seller sellerExist = sellerRepository.findByEmail(seller.getEmail());
+    public SellerEntity createSeller(SellerEntity seller) throws Exception {
+        SellerEntity sellerExist = sellerRepository.findByEmail(seller.getEmail());
         if(sellerExist != null){
             throw new Exception("seller already exist, used different email");
         }
         AddressEntity savedAddress = addressRepository.save(seller.getPickupAddress());
 
-        Seller newSeller = new Seller();
+        SellerEntity newSeller = new SellerEntity();
         newSeller.setEmail(seller.getEmail());
         newSeller.setPassword(passwordEncoder.encode(seller.getPassword()));
         newSeller.setSellerName(seller.getSellerName());
@@ -52,14 +52,14 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public Seller getSellerById(Long id) throws SellerException {
+    public SellerEntity getSellerById(Long id) throws SellerException {
         return sellerRepository.findById(id)
                 .orElseThrow(() -> new SellerException("seller not found with id "+id));
     }
 
     @Override
-    public Seller getSellerByEmail(String email) throws Exception {
-        Seller seller = sellerRepository.findByEmail(email);
+    public SellerEntity getSellerByEmail(String email) throws Exception {
+        SellerEntity seller = sellerRepository.findByEmail(email);
         if(seller==null){
             throw new Exception("seller not found ...");
         }
@@ -67,13 +67,13 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public List<Seller> getAllSellers(AccountStatus status) {
+    public List<SellerEntity> getAllSellers(AccountStatus status) {
         return sellerRepository.findByAccountStatus(status);
     }
 
     @Override
-    public Seller updateSeller(Long id, Seller seller) throws Exception {
-        Seller existingSeller=this.getSellerById(id);
+    public SellerEntity updateSeller(Long id, SellerEntity seller) throws Exception {
+        SellerEntity existingSeller=this.getSellerById(id);
 
         if(seller.getSellerName() != null){
             existingSeller.setSellerName(seller.getSellerName());
@@ -130,20 +130,20 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public void deleteSeller(Long id) throws Exception {
-        Seller seller = getSellerById(id);
+        SellerEntity seller = getSellerById(id);
         sellerRepository.delete(seller);
     }
 
     @Override
-    public Seller verifyEmail(String email, String otp) throws Exception {
-        Seller seller = getSellerByEmail(email);
+    public SellerEntity verifyEmail(String email, String otp) throws Exception {
+        SellerEntity seller = getSellerByEmail(email);
         seller.setEmailVerified(true);
         return sellerRepository.save(seller);
     }
 
     @Override
-    public Seller updateSellerAccountStatus(Long sellerId, AccountStatus status) throws Exception {
-        Seller seller = getSellerById(sellerId);
+    public SellerEntity updateSellerAccountStatus(Long sellerId, AccountStatus status) throws Exception {
+        SellerEntity seller = getSellerById(sellerId);
         seller.setAccountStatus(status);
         return sellerRepository.save(seller);
     }

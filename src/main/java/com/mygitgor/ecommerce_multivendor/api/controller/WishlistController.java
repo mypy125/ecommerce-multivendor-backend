@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Wishlist;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.WishlistEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
 import com.mygitgor.ecommerce_multivendor.application.service.UserService;
 import com.mygitgor.ecommerce_multivendor.application.service.WishlistService;
@@ -19,22 +19,22 @@ public class WishlistController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Wishlist>getWishlistByUserId(@RequestHeader("Authorization")
+    public ResponseEntity<WishlistEntity>getWishlistByUserId(@RequestHeader("Authorization")
                                                            String jwt) throws Exception
     {
-        UserEntity user = userService.findByJwtToken(jwt);
-        Wishlist wishlist = wishlistService.getWishlistByUserId(user);
+        User user = userService.findByJwtToken(jwt);
+        WishlistEntity wishlist = wishlistService.getWishlistByUserId(user);
         return ResponseEntity.ok(wishlist);
     }
 
     @PostMapping("/add-product/{productId}")
-    public ResponseEntity<Wishlist>addProductToWishlist(@PathVariable Long productId,
-                                                        @RequestHeader("Authorization")
+    public ResponseEntity<WishlistEntity>addProductToWishlist(@PathVariable Long productId,
+                                                              @RequestHeader("Authorization")
                                                            String jwt) throws Exception
     {
-        Product product = productService.findProductById(productId);
-        UserEntity user = userService.findByJwtToken(jwt);
-        Wishlist updateWishlist = wishlistService.addProductToWishlist(user,product);
+        ProductEntity product = productService.findProductById(productId);
+        User user = userService.findByJwtToken(jwt);
+        WishlistEntity updateWishlist = wishlistService.addProductToWishlist(user,product);
         return ResponseEntity.ok(updateWishlist);
     }
 }

@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.CartItemService;
@@ -13,8 +13,8 @@ public class CartItemServiceImpl implements CartItemService {
     private final CartItemJpaRepository cartItemRepository;
 
     @Override
-    public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws Exception {
-        CartItem item = findCartItemById(id);
+    public CartItemEntity updateCartItem(Long userId, Long id, CartItemEntity cartItem) throws Exception {
+        CartItemEntity item = findCartItemById(id);
 
         UserEntity cartItemUser = item.getCart().getUser();
         if(cartItemUser.getId().equals(userId)){
@@ -28,7 +28,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public void removeCartItem(Long userId, Long cartItemId) throws Exception {
-        CartItem item = findCartItemById(cartItemId);
+        CartItemEntity item = findCartItemById(cartItemId);
 
         UserEntity cartItemUser = item.getCart().getUser();
         if(cartItemUser.getId().equals(userId)){
@@ -38,7 +38,7 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public CartItem findCartItemById(Long id) throws Exception {
+    public CartItemEntity findCartItemById(Long id) throws Exception {
         return cartItemRepository.findById(id)
                 .orElseThrow(()-> new Exception("cart item not found with id "+id));
     }

@@ -10,10 +10,11 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "wishlist")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Wishlist extends BaseEntity {
+public class WishlistEntity extends BaseEntity {
 
     @OneToOne
     private UserEntity user;
@@ -24,5 +25,5 @@ public class Wishlist extends BaseEntity {
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products = new HashSet<>();
+    private Set<ProductEntity> products = new HashSet<>();
 }

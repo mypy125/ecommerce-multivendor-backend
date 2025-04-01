@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerService;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,10 @@ public class AdminController {
     private final SellerService sellerService;
 
     @PostMapping("/seller/{id}/status/{status}")
-    public ResponseEntity<Seller>updateSellerStatus(@PathVariable Long id,
-                                                    @PathVariable AccountStatus status) throws Exception
+    public ResponseEntity<SellerEntity>updateSellerStatus(@PathVariable Long id,
+                                                          @PathVariable AccountStatus status) throws Exception
     {
-        Seller updateSeller = sellerService.updateSellerAccountStatus(id,status);
+        SellerEntity updateSeller = sellerService.updateSellerAccountStatus(id,status);
         return ResponseEntity.ok(updateSeller);
     }
 }

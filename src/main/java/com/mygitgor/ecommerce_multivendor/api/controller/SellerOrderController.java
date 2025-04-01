@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Order;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.OrderStatus;
 import com.mygitgor.ecommerce_multivendor.application.service.OrderService;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerService;
@@ -20,21 +20,21 @@ public class SellerOrderController {
     private final SellerService sellerService;
 
     @GetMapping("/user")
-    public ResponseEntity<List<Order>> getAllOrdersHandler(@RequestHeader("Authorization")
+    public ResponseEntity<List<OrderEntity>> getAllOrdersHandler(@RequestHeader("Authorization")
                                                                 String jwt) throws Exception
     {
-        Seller seller = sellerService.getSellerProfile(jwt);
-        List<Order>orders = orderService.sellersOrder(seller.getId());
+        SellerEntity seller = sellerService.getSellerProfile(jwt);
+        List<OrderEntity>orders = orderService.sellersOrder(seller.getId());
         return new ResponseEntity<>(orders, HttpStatus.ACCEPTED);
     }
 
     @PatchMapping("/{orderId}/status/{orderStatus}")
-    public ResponseEntity<Order>updateOrderHandler(@PathVariable Long orderId,
-                                            @PathVariable OrderStatus orderStatus,
-                                            @RequestHeader("Authorization")
+    public ResponseEntity<OrderEntity>updateOrderHandler(@PathVariable Long orderId,
+                                                         @PathVariable OrderStatus orderStatus,
+                                                         @RequestHeader("Authorization")
                                             String jwt) throws Exception
     {
-        Order order = orderService.updateOrderStatus(orderId,orderStatus);
+        OrderEntity order = orderService.updateOrderStatus(orderId,orderStatus);
         return new ResponseEntity<>(order,HttpStatus.ACCEPTED);
     }
 }

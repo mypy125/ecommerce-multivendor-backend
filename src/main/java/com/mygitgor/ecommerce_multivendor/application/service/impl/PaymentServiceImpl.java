@@ -1,14 +1,15 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.config.PaymentConfig;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Order;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.PaymentOrder;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.PaymentOrderEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentOrderStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentStatus;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.PaymentOrderJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.PaymentService;
+import com.mygitgor.ecommerce_multivendor.mapper.UserMapper;
 import com.paypal.api.payments.*;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.APIContext;
@@ -32,10 +33,10 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
-    public PaymentOrder createOrder(UserEntity user, Set<Order> orders) {
-        Long amount=orders.stream().mapToLong(Order::getTotalSellingPrice).sum();
+    public PaymentOrderEntity createOrder(User user, Set<OrderEntity> orders) {
+        Long amount=orders.stream().mapToLong(OrderEntity::getTotalSellingPrice).sum();
 
-        PaymentOrder paymentOrder= new PaymentOrder();
+        PaymentOrderEntity paymentOrder= new PaymentOrderEntity();
         paymentOrder.setAmount(amount);
         paymentOrder.setUser(user);
         paymentOrder.setOrders(orders);
@@ -44,14 +45,14 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public PaymentOrder getPaymentOrderById(Long orderId) throws Exception {
+    public PaymentOrderEntity getPaymentOrderById(Long orderId) throws Exception {
         return paymentOrderRepository.findById(orderId)
                 .orElseThrow(()-> new Exception("payment order not found"));
     }
 
     @Override
-    public PaymentOrder getPaymentOrderByPaymentId(String orderId) throws Exception {
-        PaymentOrder paymentOrder= paymentOrderRepository.findByPaymentLinkId(orderId);
+    public PaymentOrderEntity getPaymentOrderByPaymentId(String orderId) throws Exception {
+        PaymentOrderEntity paymentOrder= paymentOrderRepository.findByPaymentLinkId(orderId);
         if(paymentOrder==null){
             throw new Exception("payment order not found with payment link id"+orderId);
         }
@@ -59,15 +60,15 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Boolean proceedPaymentOrder(PaymentOrder paymentOrder, String paymentId, String paymentLinkId) throws PayPalRESTException {
+    public Boolean proceedPaymentOrder(PaymentOrderEntity paymentOrder, String paymentId, String paymentLinkId) throws PayPalRESTException {
         if (paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING)) {
             APIContext apiContext = new APIContext(conf.getPaypalClientId(), conf.getPaypalClientSecret(), conf.getPaypalMode());
             Payment payment = Payment.get(apiContext, paymentId);
 
             String status = payment.getState();
             if (status.equals("approved")) {
-                Set<Order> orders = paymentOrder.getOrders();
-                for (Order order : orders) {
+                Set<OrderEntity> orders = paymentOrder.getOrders();
+                for (OrderEntity order : orders) {
                     order.setPaymentStatus(PaymentStatus.COMPILED);
                     orderRepository.save(order);
                 }
@@ -83,7 +84,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment createPaypalPaymentLink(UserEntity user, Long amount, Long orderId) throws PayPalRESTException {
+    public Payment createPaypalPaymentLink(User user, Long amount, Long orderId) throws PayPalRESTException {
         amount = amount / 100;
 
         Amount paypalAmount = new Amount();
@@ -92,7 +93,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         Transaction transaction = new Transaction();
         transaction.setAmount(paypalAmount);
-        transaction.setDescription("Payment for Order ID: " + orderId);
+        transaction.setDescription("Payment for OrderEntity ID: " + orderId);
 
         Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
@@ -120,7 +121,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public String createStripePaymentLink(UserEntity user, Long amount, Long orderId) throws StripeException {
+    public String createStripePaymentLink(User user, Long amount, Long orderId) throws StripeException {
         Stripe.apiKey = conf.getStripeApiKey();
         SessionCreateParams params = SessionCreateParams.builder().addPaymentMethodType(
                         SessionCreateParams

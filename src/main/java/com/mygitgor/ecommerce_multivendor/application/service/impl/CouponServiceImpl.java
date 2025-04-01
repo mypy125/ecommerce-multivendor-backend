@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.CouponEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CouponJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.UserJpaRepository;
@@ -22,9 +22,9 @@ public class CouponServiceImpl implements CouponService {
     private final UserJpaRepository userRepository;
     
     @Override
-    public Cart applyCoupon(String code, double orderValue, UserEntity user) throws Exception {
+    public CartEntity applyCoupon(String code, double orderValue, User user) throws Exception {
         CouponEntity coupon = couponRepository.findByCode(code);
-        Cart cart = cartRepository.findByUserId(user.getId());
+        CartEntity cart = cartRepository.findByUserId(user.getId());
 
         if(coupon==null){
             throw new Exception("coupon not valid");
@@ -51,12 +51,12 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public Cart removeCoupon(String code, UserEntity user) throws Exception {
+    public CartEntity removeCoupon(String code, User user) throws Exception {
         CouponEntity coupon = couponRepository.findByCode(code);
         if(coupon==null){
             throw new Exception("coupon not found...");
         }
-        Cart cart = cartRepository.findByUserId(user.getId());
+        CartEntity cart = cartRepository.findByUserId(user.getId());
         double discountPrice = (cart.getTotalSellingPrice()*coupon.getDiscountPercentage())/100;
         cart.setTotalSellingPrice(cart.getTotalSellingPrice()+discountPrice);
         cart.setCouponCode(null);

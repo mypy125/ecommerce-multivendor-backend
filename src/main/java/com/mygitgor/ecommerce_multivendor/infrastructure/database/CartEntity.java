@@ -10,15 +10,16 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "cart")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart extends BaseEntity {
+public class CartEntity extends BaseEntity {
 
     @OneToOne
     private UserEntity user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems = new HashSet<>();
+    private Set<CartItemEntity> cartItems = new HashSet<>();
 
     private double totalSellingPrice;
     private int totalItem;

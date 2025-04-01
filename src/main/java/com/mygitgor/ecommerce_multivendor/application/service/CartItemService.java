@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
 
 public interface CartItemService {
-    CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws Exception;
+    CartItemEntity updateCartItem(Long userId, Long id, CartItemEntity cartItem) throws Exception;
     void removeCartItem(Long userId, Long cartItemId) throws Exception;
-    CartItem findCartItemById(Long id) throws Exception;
+    CartItemEntity findCartItemById(Long id) throws Exception;
 }

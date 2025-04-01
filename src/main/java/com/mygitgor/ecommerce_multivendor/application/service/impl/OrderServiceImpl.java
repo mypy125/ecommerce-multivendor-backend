@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.domain.costant.OrderStatus;
 import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentStatus;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
@@ -21,31 +22,31 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemJpaRepository orderItemRepository;
 
     @Override
-    public Set<Order> createOrder(UserEntity user,
-                                  AddressEntity shippingAddress,
-                                  Cart cart
+    public Set<OrderEntity> createOrder(User user,
+                                        AddressEntity shippingAddress,
+                                        CartEntity cart
     ) {
         if(!user.getAddresses().contains(shippingAddress)){
             user.getAddresses().add(shippingAddress);
         }
         AddressEntity address = addressRepository.save(shippingAddress);
 
-        Map<Long, List<CartItem>>itemsBySeller=cart.getCartItems().stream()
+        Map<Long, List<CartItemEntity>>itemsBySeller=cart.getCartItems().stream()
                 .collect(Collectors.groupingBy(item ->
                         item.getProduct().getSeller().getId()));
 
-        Set<Order>orders = new HashSet<>();
-        for(Map.Entry<Long, List<CartItem>> entry : itemsBySeller.entrySet()){
+        Set<OrderEntity>orders = new HashSet<>();
+        for(Map.Entry<Long, List<CartItemEntity>> entry : itemsBySeller.entrySet()){
             Long sellerId= entry.getKey();
-            List<CartItem>items = entry.getValue();
+            List<CartItemEntity>items = entry.getValue();
 
             int totalOrderPrice = items.stream().mapToInt(
-                    CartItem::getSellingPrice
+                    CartItemEntity::getSellingPrice
             ).sum();
 
-            int totalItem = items.stream().mapToInt(CartItem::getQuantity).sum();
+            int totalItem = items.stream().mapToInt(CartItemEntity::getQuantity).sum();
 
-            Order createOrder = new Order();
+            OrderEntity createOrder = new OrderEntity();
             createOrder.setUser(user);
             createOrder.setSellerId(sellerId);
             createOrder.setTotalMrpPrice(totalOrderPrice);
@@ -55,12 +56,12 @@ public class OrderServiceImpl implements OrderService {
             createOrder.setOrderStatus(OrderStatus.PENDING);
             createOrder.getPaymentDetails().setStatus(PaymentStatus.PENDING);
 
-            Order savedOrder = orderRepository.save(createOrder);
+            OrderEntity savedOrder = orderRepository.save(createOrder);
             orders.add(savedOrder);
 
-            List<OrderItem>orderItems = new ArrayList<>();
-            for(CartItem item: items){
-                OrderItem orderItem = new OrderItem();
+            List<OrderItemEntity>orderItems = new ArrayList<>();
+            for(CartItemEntity item: items){
+                OrderItemEntity orderItem = new OrderItemEntity();
                 orderItem.setOrder(savedOrder);
                 orderItem.setMrpPrice(item.getMrpPrice());
                 orderItem.setProduct(item.getProduct());
@@ -71,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 
                 savedOrder.getOrderItems().add(orderItem);
 
-                OrderItem savedOrderItem=orderItemRepository.save(orderItem);
+                OrderItemEntity savedOrderItem=orderItemRepository.save(orderItem);
                 orderItems.add(savedOrderItem);
             }
 
@@ -80,31 +81,31 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findOrderById(Long id) throws Exception {
+    public OrderEntity findOrderById(Long id) throws Exception {
         return orderRepository.findById(id)
                 .orElseThrow(()->new Exception("order not found..."));
     }
 
     @Override
-    public List<Order> usersOrderHistory(Long userId) {
+    public List<OrderEntity> usersOrderHistory(Long userId) {
         return orderRepository.findByUserId(userId);
     }
 
     @Override
-    public List<Order> sellersOrder(Long sellerId) {
+    public List<OrderEntity> sellersOrder(Long sellerId) {
         return orderRepository.findBySellerId(sellerId);
     }
 
     @Override
-    public Order updateOrderStatus(Long orderId, OrderStatus status) throws Exception {
-        Order order = findOrderById(orderId);
+    public OrderEntity updateOrderStatus(Long orderId, OrderStatus status) throws Exception {
+        OrderEntity order = findOrderById(orderId);
         order.setOrderStatus(status);
         return orderRepository.save(order);
     }
 
     @Override
-    public Order cancelOrder(Long orderId, UserEntity user) throws Exception {
-        Order order = findOrderById(orderId);
+    public OrderEntity cancelOrder(Long orderId, User user) throws Exception {
+        OrderEntity order = findOrderById(orderId);
 
         if(!user.getId().equals(order.getUser().getId())){
             throw new Exception("you don't have access to this order!");
@@ -114,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderItem getOrderItemById(Long id) throws Exception {
+    public OrderItemEntity getOrderItemById(Long id) throws Exception {
         return orderItemRepository.findById(id)
                 .orElseThrow(()->new Exception("order item not exist..."));
     }

@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductJpaRepository extends JpaRepository<Product,Long>, JpaSpecificationExecutor<Product> {
-    List<Product> findBySellerId(Long sellerId);
+public interface ProductJpaRepository extends JpaRepository<ProductEntity,Long>, JpaSpecificationExecutor<ProductEntity> {
+    List<ProductEntity> findBySellerId(Long sellerId);
 
-    @Query("SELECT p FROM Product p WHERE " +
+    @Query("SELECT p FROM ProductEntity p WHERE " +
             "(:query IS NULL OR LOWER(p.title) LIKE LOWER(CONCAT('%', :query, '%'))) " +
             "OR (:query IS NULL OR LOWER(p.category.name) LIKE LOWER(CONCAT('%', :query, '%')))")
-    List<Product> searchProduct(@Param("query") String query);
+    List<ProductEntity> searchProduct(@Param("query") String query);
 
 }

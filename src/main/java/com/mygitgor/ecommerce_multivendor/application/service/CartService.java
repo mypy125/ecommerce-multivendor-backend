@@ -1,14 +1,14 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
 
 public interface CartService {
-    CartItem addCartItem(UserEntity user,
-                         Product product,
-                         String size,
-                         int quantity) throws IllegalAccessException;
-    Cart findUserCart(UserEntity user) throws IllegalAccessException;
+    CartItemEntity addCartItem(User user,
+                               ProductEntity product,
+                               String size,
+                               int quantity) throws IllegalAccessException;
+    CartEntity findUserCart(User user) throws IllegalAccessException;
 }

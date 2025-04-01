@@ -12,10 +12,11 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "seller")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Seller extends BasePerson {
+public class SellerEntity extends BasePerson {
     private String sellerName;
 
     @Embedded

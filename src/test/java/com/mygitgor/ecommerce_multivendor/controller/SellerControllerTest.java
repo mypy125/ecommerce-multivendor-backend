@@ -3,8 +3,8 @@ package com.mygitgor.ecommerce_multivendor.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCode;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCodeEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.VerificationCodeJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.AuthService;
 import com.mygitgor.ecommerce_multivendor.application.service.EmailService;
@@ -47,15 +47,15 @@ class SellerControllerTest {
     @MockitoBean
     private VerificationCodeJpaRepository verificationCodeRepository;
 
-    private Seller seller;
+    private SellerEntity seller;
     private LoginRequest loginRequest;
 
     @BeforeEach
     void setUp() {
-        seller = new Seller();
+        seller = new SellerEntity();
         seller.setId(1L);
         seller.setEmail("test@test.com");
-        seller.setSellerName("Test Seller");
+        seller.setSellerName("Test SellerEntity");
 
         loginRequest = new LoginRequest();
         loginRequest.setEmail("test@test.com");
@@ -84,7 +84,7 @@ class SellerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.email").value("test@test.com"))
-                .andExpect(jsonPath("$.sellerName").value("Test Seller"));
+                .andExpect(jsonPath("$.sellerName").value("Test SellerEntity"));
     }
 
     @Test
@@ -100,12 +100,12 @@ class SellerControllerTest {
 
     @Test
     void createSeller_shouldReturnCreatedSeller() throws Exception {
-        VerificationCode verificationCode = new VerificationCode();
+        VerificationCodeEntity verificationCode = new VerificationCodeEntity();
         verificationCode.setOtp("123456");
         verificationCode.setEmail("test@test.com");
 
-        Mockito.when(sellerService.createSeller(any(Seller.class))).thenReturn(seller);
-        Mockito.when(verificationCodeRepository.save(any(VerificationCode.class))).thenReturn(verificationCode);
+        Mockito.when(sellerService.createSeller(any(SellerEntity.class))).thenReturn(seller);
+        Mockito.when(verificationCodeRepository.save(any(VerificationCodeEntity.class))).thenReturn(verificationCode);
 
         mockMvc.perform(post("/sellers")
                         .contentType(MediaType.APPLICATION_JSON)

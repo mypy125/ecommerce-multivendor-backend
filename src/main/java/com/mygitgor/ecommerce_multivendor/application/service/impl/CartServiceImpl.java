@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.CartService;
@@ -17,12 +17,12 @@ public class CartServiceImpl implements CartService {
     private final CartItemJpaRepository cartItemRepository;
 
     @Override
-    public CartItem addCartItem(UserEntity user, Product product, String size, int quantity) throws IllegalAccessException {
-        Cart cart = findUserCart(user);
+    public CartItemEntity addCartItem(User user, ProductEntity product, String size, int quantity) throws IllegalAccessException {
+        CartEntity cart = findUserCart(user);
 
-        CartItem isPresent = cartItemRepository.findByCartAndProductAndSize(cart,product,size);
+        CartItemEntity isPresent = cartItemRepository.findByCartAndProductAndSize(cart,product,size);
         if(isPresent==null){
-            CartItem cartItem = new CartItem();
+            CartItemEntity cartItem = new CartItemEntity();
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
             cartItem.setUserId(user.getId());
@@ -41,14 +41,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart findUserCart(UserEntity user) throws IllegalAccessException {
-        Cart cart = cartRepository.findByUserId(user.getId());
+    public CartEntity findUserCart(User user) throws IllegalAccessException {
+        CartEntity cart = cartRepository.findByUserId(user.getId());
 
         int totalPrice=0;
         int totalDiscountedPrice=0;
         int totalItem=0;
 
-        for(CartItem cartItem: cart.getCartItems()){
+        for(CartItemEntity cartItem: cart.getCartItems()){
             totalPrice += cartItem.getMrpPrice();
             totalDiscountedPrice += cartItem.getSellingPrice();
             totalItem += cartItem.getQuantity();

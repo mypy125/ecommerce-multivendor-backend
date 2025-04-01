@@ -2,10 +2,10 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.AddItemRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.CartItemService;
 import com.mygitgor.ecommerce_multivendor.application.service.CartService;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
@@ -25,11 +25,11 @@ public class CartController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Cart>findUserCartHandler(@RequestHeader("Authorization")
+    public ResponseEntity<CartEntity>findUserCartHandler(@RequestHeader("Authorization")
                                                        String jwt) throws Exception
     {
-        UserEntity user =userService.findByJwtToken(jwt);
-        Cart cart = cartService.findUserCart(user);
+        User user =userService.findByJwtToken(jwt);
+        CartEntity cart = cartService.findUserCart(user);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -38,10 +38,10 @@ public class CartController {
                                                  @RequestHeader("Authorization")
                                                        String jwt) throws Exception
     {
-        UserEntity user =userService.findByJwtToken(jwt);
-        Product product = productService.findProductById(request.getProductId());
+        User user =userService.findByJwtToken(jwt);
+        ProductEntity product = productService.findProductById(request.getProductId());
 
-        CartItem item = cartService.addCartItem(
+        CartItemEntity item = cartService.addCartItem(
                 user,product,request.getSize(),request.getQuantity()
         );
         ApiResponse response = new ApiResponse();
@@ -54,7 +54,7 @@ public class CartController {
                                                             @RequestHeader("Authorization")
                                                             String jwt) throws Exception
     {
-        UserEntity user =userService.findByJwtToken(jwt);
+        User user =userService.findByJwtToken(jwt);
         cartItemService.removeCartItem(user.getId(), cartItemId);
         ApiResponse response = new ApiResponse();
         response.setMessage("Item remove from cart Successfully");
@@ -62,13 +62,13 @@ public class CartController {
     }
 
     @PutMapping("item/{cartItemId}")
-    public ResponseEntity<CartItem>updateCartItemHandler(@PathVariable Long cartItemId,
-                                                            @RequestBody CartItem cartItem,
-                                                            @RequestHeader("Authorization")
+    public ResponseEntity<CartItemEntity>updateCartItemHandler(@PathVariable Long cartItemId,
+                                                               @RequestBody CartItemEntity cartItem,
+                                                               @RequestHeader("Authorization")
                                                             String jwt) throws Exception
     {
-        UserEntity user =userService.findByJwtToken(jwt);
-       CartItem updateCartItem = null;
+        User user =userService.findByJwtToken(jwt);
+       CartItemEntity updateCartItem = null;
        if(cartItem.getQuantity()>0){
            updateCartItem=cartItemService.updateCartItem(user.getId(), cartItemId, cartItem);
        }

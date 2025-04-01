@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerJpaRepository;
@@ -27,7 +27,7 @@ public class CustomUserServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if(username.startsWith(SELLER_PREFIX)){
             String actualUsername = username.substring(SELLER_PREFIX.length());
-            Seller seller = sellerRepository.findByEmail(actualUsername);
+            SellerEntity seller = sellerRepository.findByEmail(actualUsername);
 
             if(seller != null){
                 return buildUserDetails(seller.getEmail(),seller.getPassword(),seller.getRole());

@@ -12,10 +12,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "review")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Review extends BaseEntity {
+public class ReviewEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String reviewText;
@@ -28,7 +29,7 @@ public class Review extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne
-    private Product product;
+    private ProductEntity product;
 
     @ManyToOne
     private UserEntity user;

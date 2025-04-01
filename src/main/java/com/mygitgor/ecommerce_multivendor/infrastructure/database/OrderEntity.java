@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Table(name = "orders")
-public class Order extends BaseEntity {
+public class OrderEntity extends BaseEntity {
 
     private String orderId;
 
@@ -28,7 +28,7 @@ public class Order extends BaseEntity {
     private Long sellerId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 
     @ManyToOne
     private AddressEntity shippingAddress;
