@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
+import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +15,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/users/profile")
-    public ResponseEntity<UserEntity> createUserHandler(@RequestHeader("Authorization")
+    public ResponseEntity<User> createUserHandler(@RequestHeader("Authorization")
                                                       String jwt) throws Exception {
-        UserEntity user = userService.findByJwtToken(jwt);
+        User user = userService.findByJwtToken(jwt);
         return ResponseEntity.ok(user);
     }
 }
