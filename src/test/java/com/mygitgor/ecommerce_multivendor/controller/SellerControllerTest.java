@@ -1,14 +1,14 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginRequest;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.domain.Seller;
-import com.mygitgor.ecommerce_multivendor.domain.VerificationCode;
-import com.mygitgor.ecommerce_multivendor.repository.VerificationCodeRepository;
-import com.mygitgor.ecommerce_multivendor.service.AuthService;
-import com.mygitgor.ecommerce_multivendor.service.EmailService;
-import com.mygitgor.ecommerce_multivendor.service.SellerService;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.Seller;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCode;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.VerificationCodeJpaRepository;
+import com.mygitgor.ecommerce_multivendor.application.service.AuthService;
+import com.mygitgor.ecommerce_multivendor.application.service.EmailService;
+import com.mygitgor.ecommerce_multivendor.application.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -45,7 +45,7 @@ class SellerControllerTest {
     private EmailService emailService;
 
     @MockitoBean
-    private VerificationCodeRepository verificationCodeRepository;
+    private VerificationCodeJpaRepository verificationCodeRepository;
 
     private Seller seller;
     private LoginRequest loginRequest;

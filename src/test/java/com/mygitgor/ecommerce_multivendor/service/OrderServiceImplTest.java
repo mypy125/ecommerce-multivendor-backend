@@ -1,10 +1,10 @@
 package com.mygitgor.ecommerce_multivendor.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.*;
-import com.mygitgor.ecommerce_multivendor.repository.AddressRepository;
-import com.mygitgor.ecommerce_multivendor.repository.OrderItemRepository;
-import com.mygitgor.ecommerce_multivendor.repository.OrderRepository;
-import com.mygitgor.ecommerce_multivendor.service.impl.OrderServiceImpl;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.AddressJpaRepository;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderItemJpaRepository;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;
+import com.mygitgor.ecommerce_multivendor.application.service.impl.OrderServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,29 +18,29 @@ import java.util.*;
 class OrderServiceImplTest {
 
     @MockitoBean
-    private OrderRepository orderRepository;
+    private OrderJpaRepository orderRepository;
 
     @MockitoBean
-    private AddressRepository addressRepository;
+    private AddressJpaRepository addressRepository;
 
     @MockitoBean
-    private OrderItemRepository orderItemRepository;
+    private OrderItemJpaRepository orderItemRepository;
 
     @InjectMocks
     private OrderServiceImpl orderService;
 
-    private User user;
-    private Address shippingAddress;
+    private UserEntity user;
+    private AddressEntity shippingAddress;
     private Cart cart;
     private Product product;
 
     @BeforeEach
     void setUp() {
-        user = new User();
+        user = new UserEntity();
         user.setId(1L);
         user.setAddresses(new HashSet<>());
 
-        shippingAddress = new Address();
+        shippingAddress = new AddressEntity();
         shippingAddress.setId(1L);
         shippingAddress.setLocality("123 Test Street");
 

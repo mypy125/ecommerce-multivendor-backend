@@ -1,0 +1,28 @@
+package com.mygitgor.ecommerce_multivendor.infrastructure.database;
+
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.abstraction.BaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class Wishlist extends BaseEntity {
+
+    @OneToOne
+    private UserEntity user;
+
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist_products",
+            joinColumns = @JoinColumn(name = "wishlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products = new HashSet<>();
+}

@@ -1,15 +1,16 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.AddItemRequest;
-import com.mygitgor.ecommerce_multivendor.domain.Cart;
-import com.mygitgor.ecommerce_multivendor.domain.CartItem;
-import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.service.CartItemService;
-import com.mygitgor.ecommerce_multivendor.service.CartService;
-import com.mygitgor.ecommerce_multivendor.service.ProductService;
-import com.mygitgor.ecommerce_multivendor.service.UserService;
+import com.mygitgor.ecommerce_multivendor.api.controller.CartController;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.request.AddItemRequest;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.Cart;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItem;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.application.service.CartItemService;
+import com.mygitgor.ecommerce_multivendor.application.service.CartService;
+import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
+import com.mygitgor.ecommerce_multivendor.application.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -53,7 +54,7 @@ class CartControllerTest {
     @InjectMocks
     private CartController cartController;
 
-    private User user;
+    private UserEntity user;
     private Product product;
     private CartItem cartItem;
     private AddItemRequest addItemRequest;
@@ -62,9 +63,9 @@ class CartControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(cartController).build();
 
-        user = new User();
+        user = new UserEntity();
         user.setId(1L);
-        user.setFullName("Test User");
+        user.setFullName("Test UserEntity");
 
         product = new Product();
         product.setId(1L);

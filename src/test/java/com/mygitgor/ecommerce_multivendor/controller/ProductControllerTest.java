@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygitgor.ecommerce_multivendor.domain.Product;
-import com.mygitgor.ecommerce_multivendor.exception.ProductException;
-import com.mygitgor.ecommerce_multivendor.service.ProductService;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.Product;
+import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
+import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,16 +1,12 @@
 package com.mygitgor.ecommerce_multivendor.domain;
 
-import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseEntity;
-import jakarta.persistence.Entity;
-import lombok.*;
+import com.mygitgor.ecommerce_multivendor.domain.abstraction.BaseModelId;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class Address extends BaseEntity {
+public class Address extends BaseModelId {
     private String name;
     private String locality;
     private String address;

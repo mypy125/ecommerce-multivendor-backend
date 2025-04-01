@@ -1,13 +1,12 @@
 package com.mygitgor.ecommerce_multivendor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginOtpRequest;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.LoginRequest;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.request.SignupRequest;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.ApiResponse;
-import com.mygitgor.ecommerce_multivendor.controller.DTOs.response.AuthResponse;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginOtpRequest;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.request.SignupRequest;
+import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
 import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
-import com.mygitgor.ecommerce_multivendor.service.AuthService;
+import com.mygitgor.ecommerce_multivendor.application.service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class AuthControllerTest {
     void testCreateUserHandler() throws Exception {
         SignupRequest signupRequest = new SignupRequest();
         signupRequest.setEmail("test@example.com");
-        signupRequest.setFullName("Test User");
+        signupRequest.setFullName("Test UserEntity");
         signupRequest.setOtp("123456");
 
         AuthResponse authResponse = new AuthResponse();
