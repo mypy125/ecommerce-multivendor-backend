@@ -9,4 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Deal extends BaseModelId {
+    private Integer discount;
+    private HomeCategory category;
 }

@@ -9,4 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartItem extends BaseModelId {
+    private Cart cart;
+    private Product product;
+    private String size;
+    private int quantity = 1;
+    private Integer mrpPrice;
+    private Integer sellingPrice;
+    private Long userId;
 }

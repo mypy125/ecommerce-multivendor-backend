@@ -24,6 +24,4 @@ public class CategoryEntity extends BaseEntity {
 
     @NotNull
     private Integer level;
-
-
 }

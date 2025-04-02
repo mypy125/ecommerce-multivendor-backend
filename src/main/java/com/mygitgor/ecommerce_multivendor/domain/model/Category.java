@@ -9,4 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category extends BaseModelId {
+    private String name;
+    private String categoryId;
+    private Category parentCategory;
+    private Integer level;
 }

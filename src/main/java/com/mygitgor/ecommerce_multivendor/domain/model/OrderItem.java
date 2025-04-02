@@ -8,5 +8,12 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem extends BaseModelId {
+public class OrderItem extends BaseModelId {private Order order;
+    private Product product;
+    private String size;
+    private int quantity;
+    private Integer mrpPrice;
+    private Integer sellingPrice;
+    private Long userId;
+
 }

@@ -9,4 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VerificationCode extends BaseModelId {
+    private String otp;
+    private String email;
+    private User user;
+    private Seller seller;
 }
