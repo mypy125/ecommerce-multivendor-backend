@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReportEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerReportEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

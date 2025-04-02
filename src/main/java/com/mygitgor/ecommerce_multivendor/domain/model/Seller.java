@@ -1,0 +1,12 @@
+package com.mygitgor.ecommerce_multivendor.domain.model;
+
+import com.mygitgor.ecommerce_multivendor.domain.model.abstraction.BasePerson;
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Seller extends BasePerson {
+}

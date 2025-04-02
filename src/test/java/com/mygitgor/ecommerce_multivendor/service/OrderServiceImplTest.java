@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.*;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.AddressJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;

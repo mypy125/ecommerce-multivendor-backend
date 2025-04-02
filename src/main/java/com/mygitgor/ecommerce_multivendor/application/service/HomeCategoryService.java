@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategoryEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.HomeCategoryEntity;
 
 import java.util.List;
 

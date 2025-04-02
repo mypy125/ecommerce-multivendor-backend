@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateReviewRequest;
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.ReviewEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ReviewEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.ReviewJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.ReviewService;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
 import lombok.RequiredArgsConstructor;

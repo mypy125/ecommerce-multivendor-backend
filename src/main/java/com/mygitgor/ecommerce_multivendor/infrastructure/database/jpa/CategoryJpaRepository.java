@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CategoryEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryJpaRepository extends JpaRepository<CategoryEntity, Long> {

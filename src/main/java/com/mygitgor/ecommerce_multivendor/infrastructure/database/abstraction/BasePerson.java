@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.abstraction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.USER_ROLE;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;

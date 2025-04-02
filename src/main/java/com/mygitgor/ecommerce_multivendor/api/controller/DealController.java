@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.DealEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.DealEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.DealService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

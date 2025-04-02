@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartItemEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.CartService;

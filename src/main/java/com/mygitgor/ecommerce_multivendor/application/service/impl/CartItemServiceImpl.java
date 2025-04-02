@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartItemEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartItemEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.UserEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CartItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.CartItemService;
 import lombok.RequiredArgsConstructor;

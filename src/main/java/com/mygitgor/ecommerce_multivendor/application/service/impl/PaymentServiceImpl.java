@@ -1,15 +1,14 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
 import com.mygitgor.ecommerce_multivendor.config.PaymentConfig;
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.OrderEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.PaymentOrderEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentOrderStatus;
-import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentStatus;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.PaymentOrderEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentOrderStatus;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentStatus;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.PaymentOrderJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.PaymentService;
-import com.mygitgor.ecommerce_multivendor.mapper.UserMapper;
 import com.paypal.api.payments.*;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.APIContext;

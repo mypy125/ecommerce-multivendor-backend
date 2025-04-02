@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

@@ -1,10 +1,10 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.AddressEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
-import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.AddressEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.AccountStatus;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.api.exception.SellerException;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.AddressJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerJpaRepository;

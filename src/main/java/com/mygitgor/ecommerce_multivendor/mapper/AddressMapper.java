@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.mapper;
 
-import com.mygitgor.ecommerce_multivendor.domain.Address;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.AddressEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.Address;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.AddressEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

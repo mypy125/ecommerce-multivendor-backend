@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.api.exception.SellerException;
 
 import java.util.List;

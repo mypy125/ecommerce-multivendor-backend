@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CouponEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CouponEntity;
 
 import java.util.List;
 

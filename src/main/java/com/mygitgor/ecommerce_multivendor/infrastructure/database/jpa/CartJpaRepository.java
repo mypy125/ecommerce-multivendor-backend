@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

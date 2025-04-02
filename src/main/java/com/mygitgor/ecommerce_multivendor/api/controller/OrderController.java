@@ -2,9 +2,9 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.PaymentLinkResponse;
 import com.mygitgor.ecommerce_multivendor.application.service.*;
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentMethod;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentMethod;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.*;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.PaymentOrderJpaRepository;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;

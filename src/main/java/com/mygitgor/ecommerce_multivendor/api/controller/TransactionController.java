@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.TransactionEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.TransactionEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerService;
 import com.mygitgor.ecommerce_multivendor.application.service.TransactionService;
 import lombok.RequiredArgsConstructor;

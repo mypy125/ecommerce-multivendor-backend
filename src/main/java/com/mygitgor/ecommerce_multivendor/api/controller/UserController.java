@@ -1,7 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

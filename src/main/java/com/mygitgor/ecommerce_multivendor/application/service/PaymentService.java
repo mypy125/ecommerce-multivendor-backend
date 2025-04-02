@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.OrderEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.PaymentOrderEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.PaymentOrderEntity;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import com.stripe.exception.StripeException;

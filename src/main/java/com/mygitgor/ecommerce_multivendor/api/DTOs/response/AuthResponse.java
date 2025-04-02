@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.DTOs.response;
 
-import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.USER_ROLE;
 import lombok.Data;
 
 @Data

@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.DealEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.Home;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.HomeCategoryEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.HomeCategorySection;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.DealEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.Home;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.HomeCategoryEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.HomeCategorySection;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.DealJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.HomeService;
 import lombok.RequiredArgsConstructor;

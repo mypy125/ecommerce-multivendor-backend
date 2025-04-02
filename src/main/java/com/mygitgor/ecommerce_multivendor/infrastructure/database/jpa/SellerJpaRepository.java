@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.AccountStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

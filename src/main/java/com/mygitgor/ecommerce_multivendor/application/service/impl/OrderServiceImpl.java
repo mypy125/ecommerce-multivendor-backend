@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.domain.costant.OrderStatus;
-import com.mygitgor.ecommerce_multivendor.domain.costant.PaymentStatus;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.OrderStatus;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentStatus;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.*;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.AddressJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;

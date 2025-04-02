@@ -1,8 +1,11 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
-import com.mygitgor.ecommerce_multivendor.domain.costant.OrderStatus;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.*;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.OrderStatus;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.AddressEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.OrderItemEntity;
 
 import java.util.List;
 import java.util.Set;

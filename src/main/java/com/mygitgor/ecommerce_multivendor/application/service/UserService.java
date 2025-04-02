@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.User;
 
 public interface UserService {
     User findByJwtToken(String jwt) throws Exception;

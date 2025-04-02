@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.OrderEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.TransactionEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.OrderEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.TransactionEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.TransactionJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.TransactionService;

@@ -4,7 +4,7 @@ import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginOtpRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.SignupRequest;
 import com.mygitgor.ecommerce_multivendor.application.service.AuthService;
 import lombok.AllArgsConstructor;

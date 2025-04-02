@@ -2,8 +2,8 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateProductRequest;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.ProductEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerService;

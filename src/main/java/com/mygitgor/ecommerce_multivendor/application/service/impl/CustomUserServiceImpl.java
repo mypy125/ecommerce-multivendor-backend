@@ -1,8 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.UserEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.USER_ROLE;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.UserEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.USER_ROLE;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.UserJpaRepository;
 import lombok.RequiredArgsConstructor;

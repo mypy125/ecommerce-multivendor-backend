@@ -1,12 +1,12 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.AuthResponse;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReportEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.VerificationCodeEntity;
-import com.mygitgor.ecommerce_multivendor.domain.costant.AccountStatus;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerReportEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.VerificationCodeEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.costant.AccountStatus;
 import com.mygitgor.ecommerce_multivendor.api.exception.SellerException;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.VerificationCodeJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.AuthService;

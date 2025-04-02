@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.mapper;
 
-import com.mygitgor.ecommerce_multivendor.domain.Coupon;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.CouponEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.Coupon;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CouponEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

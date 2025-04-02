@@ -1,7 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.SellerReportEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
+import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerReportEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.SellerReportJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerReportService;
 import lombok.RequiredArgsConstructor;
