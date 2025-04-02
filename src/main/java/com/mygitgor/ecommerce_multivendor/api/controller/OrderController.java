@@ -2,7 +2,7 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.PaymentLinkResponse;
 import com.mygitgor.ecommerce_multivendor.application.service.*;
-import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.*;
 import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentMethod;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.*;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.PaymentOrderJpaRepository;
@@ -29,14 +29,14 @@ public class OrderController {
     private final PaymentOrderJpaRepository paymentOrderRepository;
 
     @PostMapping
-    public ResponseEntity<PaymentLinkResponse> createOrderHandler(@RequestBody AddressEntity shippingAddress,
+    public ResponseEntity<PaymentLinkResponse> createOrderHandler(@RequestBody Address shippingAddress,
                                                                   @RequestParam PaymentMethod paymentMethod,
                                                                   @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findByJwtToken(jwt);
-        CartEntity cart = cartService.findUserCart(user);
-        Set<OrderEntity> orders = orderService.createOrder(user, shippingAddress, cart);
+        Cart cart = cartService.findUserCart(user);
+        Set<Order> orders = orderService.createOrder(user, shippingAddress, cart);
 
-        PaymentOrderEntity paymentOrder = paymentService.createOrder(user, orders);
+        PaymentOrder paymentOrder = paymentService.createOrder(user, orders);
 
         PaymentLinkResponse res = new PaymentLinkResponse();
         if (paymentMethod.equals(PaymentMethod.PAYPAL)) {
@@ -61,44 +61,44 @@ public class OrderController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<OrderEntity>>usersOrderHistoryHandler(@RequestHeader("Authorization")
+    public ResponseEntity<List<Order>>usersOrderHistoryHandler(@RequestHeader("Authorization")
                                                                   String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
-        List<OrderEntity>orders = orderService.usersOrderHistory(user.getId());
+        List<Order>orders = orderService.usersOrderHistory(user.getId());
         return new ResponseEntity<>(orders,HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<OrderEntity>getOrderById(@PathVariable Long orderId,
+    public ResponseEntity<Order>getOrderById(@PathVariable Long orderId,
                                                    @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
-        OrderEntity order = orderService.findOrderById(orderId);
+        Order order = orderService.findOrderById(orderId);
         return new ResponseEntity<>(order,HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/item/{orderItemId}")
-    public ResponseEntity<OrderItemEntity>getOrderItemById(@PathVariable Long orderItemId,
+    public ResponseEntity<OrderItem>getOrderItemById(@PathVariable Long orderItemId,
                                                            @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
-        OrderItemEntity orderItem = orderService.getOrderItemById(orderItemId);
+        OrderItem orderItem = orderService.getOrderItemById(orderItemId);
         return new ResponseEntity<>(orderItem,HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/{orderId}/cancel")
-    public ResponseEntity<OrderEntity>cancelOrder(@PathVariable Long orderId,
-                                                  @RequestHeader("Authorization")
+    public ResponseEntity<Order>cancelOrder(@PathVariable Long orderId,
+                                            @RequestHeader("Authorization")
                                                    String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
-        OrderEntity order = orderService.cancelOrder(orderId, user);
+        Order order = orderService.cancelOrder(orderId, user);
 
-        SellerEntity seller = sellerService.getSellerById(order.getSellerId());
-        SellerReportEntity report = sellerReportService.getSellerReport(seller);
+        Seller seller = sellerService.getSellerById(order.getSellerId());
+        SellerReport report = sellerReportService.getSellerReport(seller);
 
         report.setCanceledOrders(report.getCanceledOrders()+1);
         report.setTotalRefunds(report.getTotalRefunds()+order.getTotalSellingPrice());

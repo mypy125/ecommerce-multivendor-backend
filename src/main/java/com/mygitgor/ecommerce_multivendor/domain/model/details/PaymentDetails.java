@@ -15,4 +15,8 @@ public class PaymentDetails {
     private String paymentLinkStatus;
     private String paymentIdZWSP;
     private PaymentStatus status;
+
+    public PaymentDetails(PaymentStatus status) {
+        this.status = status;
+    }
 }

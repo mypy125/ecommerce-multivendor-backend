@@ -1,5 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Address;
+import com.mygitgor.ecommerce_multivendor.domain.model.Seller;
+import com.mygitgor.ecommerce_multivendor.domain.repository.AddressRepository;
+import com.mygitgor.ecommerce_multivendor.domain.repository.SellerRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.AddressEntity;
@@ -18,26 +22,26 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SellerServiceImpl implements SellerService {
-    private final SellerJpaRepository sellerRepository;
+    private final SellerRepository sellerRepository;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
-    private final AddressJpaRepository addressRepository;
+    private final AddressRepository addressRepository;
 
     @Override
-    public SellerEntity getSellerProfile(String jwt) throws Exception {
+    public Seller getSellerProfile(String jwt) throws Exception {
         String email = jwtProvider.getEmailFromJwtToken(jwt);
         return this.getSellerByEmail(email);
     }
 
     @Override
-    public SellerEntity createSeller(SellerEntity seller) throws Exception {
-        SellerEntity sellerExist = sellerRepository.findByEmail(seller.getEmail());
+    public Seller createSeller(Seller seller) throws Exception {
+        Seller sellerExist = sellerRepository.getSellerByEmail(seller.getEmail());
         if(sellerExist != null){
             throw new Exception("seller already exist, used different email");
         }
-        AddressEntity savedAddress = addressRepository.save(seller.getPickupAddress());
+        Address savedAddress = addressRepository.save(seller.getPickupAddress());
 
-        SellerEntity newSeller = new SellerEntity();
+        Seller newSeller = new Seller();
         newSeller.setEmail(seller.getEmail());
         newSeller.setPassword(passwordEncoder.encode(seller.getPassword()));
         newSeller.setSellerName(seller.getSellerName());
@@ -52,28 +56,23 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public SellerEntity getSellerById(Long id) throws SellerException {
-        return sellerRepository.findById(id)
-                .orElseThrow(() -> new SellerException("seller not found with id "+id));
+    public Seller getSellerById(Long id) throws SellerException {
+        return sellerRepository.getSellerById(id);
     }
 
     @Override
-    public SellerEntity getSellerByEmail(String email) throws Exception {
-        SellerEntity seller = sellerRepository.findByEmail(email);
-        if(seller==null){
-            throw new Exception("seller not found ...");
-        }
-        return seller;
+    public Seller getSellerByEmail(String email) {
+        return sellerRepository.getSellerByEmail(email);
     }
 
     @Override
-    public List<SellerEntity> getAllSellers(AccountStatus status) {
-        return sellerRepository.findByAccountStatus(status);
+    public List<Seller> getAllSellers(AccountStatus status) {
+        return sellerRepository.getAllSellers(status);
     }
 
     @Override
-    public SellerEntity updateSeller(Long id, SellerEntity seller) throws Exception {
-        SellerEntity existingSeller=this.getSellerById(id);
+    public Seller updateSeller(Long id, Seller seller) throws Exception {
+        Seller existingSeller=this.getSellerById(id);
 
         if(seller.getSellerName() != null){
             existingSeller.setSellerName(seller.getSellerName());
@@ -130,20 +129,20 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public void deleteSeller(Long id) throws Exception {
-        SellerEntity seller = getSellerById(id);
+        Seller seller = getSellerById(id);
         sellerRepository.delete(seller);
     }
 
     @Override
-    public SellerEntity verifyEmail(String email, String otp) throws Exception {
-        SellerEntity seller = getSellerByEmail(email);
+    public Seller verifyEmail(String email, String otp) {
+        Seller seller = getSellerByEmail(email);
         seller.setEmailVerified(true);
         return sellerRepository.save(seller);
     }
 
     @Override
-    public SellerEntity updateSellerAccountStatus(Long sellerId, AccountStatus status) throws Exception {
-        SellerEntity seller = getSellerById(sellerId);
+    public Seller updateSellerAccountStatus(Long sellerId, AccountStatus status) throws Exception {
+        Seller seller = getSellerById(sellerId);
         seller.setAccountStatus(status);
         return sellerRepository.save(seller);
     }

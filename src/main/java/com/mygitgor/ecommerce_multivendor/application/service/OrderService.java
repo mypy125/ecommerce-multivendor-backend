@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.*;
 import com.mygitgor.ecommerce_multivendor.domain.model.costant.OrderStatus;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.AddressEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Set;
 
 public interface OrderService {
-    Set<OrderEntity> createOrder(User user, AddressEntity shippingAddress, CartEntity cart);
-    OrderEntity findOrderById(Long id) throws Exception;
-    List<OrderEntity>usersOrderHistory(Long userId);
-    List<OrderEntity>sellersOrder(Long sellerId);
-    OrderEntity updateOrderStatus(Long orderId, OrderStatus status) throws Exception;
-    OrderEntity cancelOrder(Long orderId, User user) throws Exception;
-    OrderItemEntity getOrderItemById(Long id) throws Exception;
+    Set<Order> createOrder(User user, Address shippingAddress, Cart cart);
+    Order findOrderById(Long id) throws Exception;
+    List<Order>usersOrderHistory(Long userId);
+    List<Order>sellersOrder(Long sellerId);
+    Order updateOrderStatus(Long orderId, OrderStatus status) throws Exception;
+    Order cancelOrder(Long orderId, User user) throws Exception;
+    OrderItem getOrderItemById(Long id) throws Exception;
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SellerReporter extends BaseModelId {
+public class SellerReport extends BaseModelId {
     private Seller seller;
     private Long totalEarnings = 0L;
     private Long totalSales = 0L;

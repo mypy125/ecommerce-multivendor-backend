@@ -1,9 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerReportEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.Seller;
+import com.mygitgor.ecommerce_multivendor.domain.model.SellerReport;
 
 public interface SellerReportService {
-    SellerReportEntity getSellerReport(SellerEntity seller);
-    SellerReportEntity updateSellerReport(SellerReportEntity sellerReport);
+    SellerReport getSellerReport(Seller seller);
+    SellerReport updateSellerReport(SellerReport sellerReport);
 }
