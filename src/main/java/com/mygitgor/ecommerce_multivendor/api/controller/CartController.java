@@ -2,6 +2,9 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.AddItemRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
+import com.mygitgor.ecommerce_multivendor.domain.model.Cart;
+import com.mygitgor.ecommerce_multivendor.domain.model.CartItem;
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartItemEntity;
@@ -25,11 +28,11 @@ public class CartController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<CartEntity>findUserCartHandler(@RequestHeader("Authorization")
+    public ResponseEntity<Cart>findUserCartHandler(@RequestHeader("Authorization")
                                                        String jwt) throws Exception
     {
         User user =userService.findByJwtToken(jwt);
-        CartEntity cart = cartService.findUserCart(user);
+        Cart cart = cartService.findUserCart(user);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -39,9 +42,9 @@ public class CartController {
                                                        String jwt) throws Exception
     {
         User user =userService.findByJwtToken(jwt);
-        ProductEntity product = productService.findProductById(request.getProductId());
+        Product product = productService.findProductById(request.getProductId());
 
-        CartItemEntity item = cartService.addCartItem(
+        CartItem item = cartService.addCartItem(
                 user,product,request.getSize(),request.getQuantity()
         );
         ApiResponse response = new ApiResponse();
@@ -62,16 +65,15 @@ public class CartController {
     }
 
     @PutMapping("item/{cartItemId}")
-    public ResponseEntity<CartItemEntity>updateCartItemHandler(@PathVariable Long cartItemId,
-                                                               @RequestBody CartItemEntity cartItem,
+    public ResponseEntity<CartItem>updateCartItemHandler(@PathVariable Long cartItemId,
+                                                               @RequestBody CartItem cartItem,
                                                                @RequestHeader("Authorization")
                                                             String jwt) throws Exception
-    {
-        User user =userService.findByJwtToken(jwt);
-       CartItemEntity updateCartItem = null;
-       if(cartItem.getQuantity()>0){
-           updateCartItem=cartItemService.updateCartItem(user.getId(), cartItemId, cartItem);
-       }
+    {   User user =userService.findByJwtToken(jwt);
+        CartItem updateCartItem = null;
+        if(cartItem.getQuantity()>0){
+            updateCartItem=cartItemService.updateCartItem(user.getId(), cartItemId, cartItem);
+        }
 
         return new ResponseEntity<>(updateCartItem, HttpStatus.ACCEPTED);
     }

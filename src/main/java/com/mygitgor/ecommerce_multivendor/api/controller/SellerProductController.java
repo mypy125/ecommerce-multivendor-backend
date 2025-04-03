@@ -2,6 +2,7 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateProductRequest;
+import com.mygitgor.ecommerce_multivendor.domain.model.Seller;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
@@ -25,7 +26,7 @@ public class SellerProductController {
     public ResponseEntity<List<ProductEntity>>getProductBySellerId(@RequestHeader("Authorization")
                                                                  String jwt) throws Exception
     {
-        SellerEntity seller = sellerService.getSellerProfile(jwt);
+        Seller seller = sellerService.getSellerProfile(jwt);
         List<ProductEntity>products=productService.getProductBySellerId(seller.getId());
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
@@ -34,7 +35,7 @@ public class SellerProductController {
     public ResponseEntity<ProductEntity>createProduct(@RequestBody CreateProductRequest request,
                                                       @RequestHeader("Authorization") String jwt) throws Exception
     {
-        SellerEntity seller = sellerService.getSellerProfile(jwt);
+        Seller seller = sellerService.getSellerProfile(jwt);
         ProductEntity product = productService.createProduct(request,seller);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

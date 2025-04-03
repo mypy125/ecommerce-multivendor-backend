@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Seller;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.TransactionEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.SellerService;
@@ -24,7 +25,7 @@ public class TransactionController {
     public ResponseEntity<List<TransactionEntity>>getTransactionBySeller(@RequestHeader("Authorization")
                                                                        String jwt) throws Exception
     {
-        SellerEntity seller = sellerService.getSellerProfile(jwt);
+        Seller seller = sellerService.getSellerProfile(jwt);
         List<TransactionEntity>transactions = transactionService.getTransactionsBySellerId(seller);
         return ResponseEntity.ok(transactions);
     }
