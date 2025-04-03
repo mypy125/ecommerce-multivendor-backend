@@ -1,5 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Cart;
+import com.mygitgor.ecommerce_multivendor.domain.model.Coupon;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CouponEntity;
@@ -21,7 +23,7 @@ public class AdminCouponController {
     private final CartService cartService;
 
     @PostMapping("/apply")
-    public ResponseEntity<CartEntity>applyCoupon(@RequestParam String apply,
+    public ResponseEntity<Cart>applyCoupon(@RequestParam String apply,
                                                  @RequestParam String code,
                                                  @RequestParam double orderValue,
                                                  @RequestHeader("Authorization")
@@ -29,14 +31,14 @@ public class AdminCouponController {
     {
         User user = userService.findByJwtToken(jwt);
         boolean isApply = Boolean.parseBoolean(apply);
-        CartEntity cart = isApply ? couponService.applyCoupon(code, orderValue, user)
+        Cart cart = isApply ? couponService.applyCoupon(code, orderValue, user)
                 : couponService.removeCoupon(code, user);
         return ResponseEntity.ok(cart);
     }
 
     @PostMapping("/admin/create")
-    public ResponseEntity<CouponEntity>createCoupon(@RequestBody CouponEntity coupon){
-        CouponEntity createCoupon = couponService.createCoupon(coupon);
+    public ResponseEntity<Coupon>createCoupon(@RequestBody Coupon coupon){
+        Coupon createCoupon = couponService.createCoupon(coupon);
         return ResponseEntity.ok(createCoupon);
     }
 
@@ -47,8 +49,8 @@ public class AdminCouponController {
     }
 
     @GetMapping("/admin/all")
-    public ResponseEntity<List<CouponEntity>>getAllCoupons() {
-        List<CouponEntity>coupons = couponService.findAllCoupon();
+    public ResponseEntity<List<Coupon>>getAllCoupons() {
+        List<Coupon>coupons = couponService.findAllCoupon();
         return ResponseEntity.ok(coupons);
     }
 }

@@ -1,5 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Cart;
+import com.mygitgor.ecommerce_multivendor.domain.model.Coupon;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CouponEntity;
@@ -7,10 +9,10 @@ import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.Coupon
 import java.util.List;
 
 public interface CouponService {
-    CartEntity applyCoupon(String code, double orderValue, User user) throws Exception;
-    CartEntity removeCoupon(String code, User user) throws Exception;
-    CouponEntity findCouponById(Long id) throws Exception;
-    CouponEntity createCoupon(CouponEntity coupon);
-    List<CouponEntity> findAllCoupon();
+    Cart applyCoupon(String code, double orderValue, User user) throws Exception;
+    Cart removeCoupon(String code, User user) throws Exception;
+    Coupon findCouponById(Long id) throws Exception;
+    Coupon createCoupon(Coupon coupon);
+    List<Coupon> findAllCoupon();
     void deleteCoupon(Long id) throws Exception;
 }

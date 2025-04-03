@@ -1,6 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.domain.model.Home;
+import com.mygitgor.ecommerce_multivendor.domain.model.HomeCategory;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.HomeCategoryEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.HomeCategoryService;
 import com.mygitgor.ecommerce_multivendor.application.service.HomeService;
@@ -20,23 +21,23 @@ public class HomeCategoryController {
     @PostMapping("/home/categories")
     public ResponseEntity<Home>createHomeCategory(@RequestBody List<HomeCategoryEntity> homeCategories)
     {
-        List<HomeCategoryEntity>categories = homeCategoryService.createCategories(homeCategories);
+        List<HomeCategory>categories = homeCategoryService.createCategories(homeCategories);
         Home home = homeService.createHomePageData(categories);
         return new ResponseEntity<>(home, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/admin/home-category")
-    public ResponseEntity<List<HomeCategoryEntity>>getHomeCategory()
+    public ResponseEntity<List<HomeCategory>>getHomeCategory()
     {
-        List<HomeCategoryEntity>categories = homeCategoryService.getAllHomeCategories();
+        List<HomeCategory>categories = homeCategoryService.getAllHomeCategories();
         return ResponseEntity.ok(categories);
     }
 
     @PatchMapping("/admin/home-category/{id}")
-    public ResponseEntity<HomeCategoryEntity>updateHomeCategory(@PathVariable Long id,
-                                                                @RequestBody HomeCategoryEntity homeCategory) throws Exception
+    public ResponseEntity<HomeCategory>updateHomeCategory(@PathVariable Long id,
+                                                                @RequestBody HomeCategory homeCategory) throws Exception
     {
-        HomeCategoryEntity updateHomeCategory = homeCategoryService.updateHomeCategory(homeCategory,id);
+        HomeCategory updateHomeCategory = homeCategoryService.updateHomeCategory(homeCategory,id);
         return ResponseEntity.ok(updateHomeCategory);
     }
 }

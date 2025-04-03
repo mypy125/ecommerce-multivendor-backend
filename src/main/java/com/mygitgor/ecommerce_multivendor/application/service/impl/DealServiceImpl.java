@@ -1,5 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.application.service.impl;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Deal;
+import com.mygitgor.ecommerce_multivendor.domain.repository.DealRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.DealEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.HomeCategoryEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.DealJpaRepository;
@@ -14,45 +16,45 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DealServiceImpl implements DealService {
     private final HomeCategoryJpaRepository homeCategoryRepository;
-    private final DealJpaRepository dealRepository;
-    
+    private final DealRepository dealRepository;
+
     @Override
-    public List<DealEntity> getDeals() {
+    public List<Deal> getDeals() {
         return dealRepository.findAll();
     }
 
     @Override
-    public DealEntity createDeal(DealEntity deal) {
+    public Deal createDeal(Deal deal) {
         HomeCategoryEntity category = homeCategoryRepository.findById(deal.getCategory().getId()).orElse(null);
+        if (category == null) {
+            throw new RuntimeException("Category not found");
+        }
 
-        DealEntity newDeal = dealRepository.save(deal);
-        newDeal.setCategory(category);
-        newDeal.setDiscount(deal.getDiscount());
-        return dealRepository.save(newDeal);
+        deal.setCategory(category);
+        return dealRepository.save(deal);
     }
 
     @Override
-    public DealEntity updateDeal(DealEntity deal, Long id) throws Exception {
-        DealEntity existDeal = dealRepository.findById(id).orElse(null);
+    public Deal updateDeal(Deal deal, Long id) throws Exception {
+        Deal existDeal = dealRepository.findById(id).orElse(null);
         HomeCategoryEntity category = homeCategoryRepository.findById(deal.getCategory().getId()).orElse(null);
 
-        if(existDeal!=null){
-            if(existDeal.getDiscount()!=null){
+        if (existDeal != null) {
+            if (deal.getDiscount() != null) {
                 existDeal.setDiscount(deal.getDiscount());
             }
-            if(category!=null){
+            if (category != null) {
                 existDeal.setCategory(category);
             }
             return dealRepository.save(existDeal);
         }
-        throw new Exception("deal not found");
+        throw new Exception("Deal not found");
     }
 
     @Override
     public void deleteDeal(Long id) throws Exception {
-        DealEntity deal = dealRepository.findById(id)
-                .orElseThrow(()-> new Exception("deal not found"));
-
+        Deal deal = dealRepository.findById(id)
+                .orElseThrow(() -> new Exception("Deal not found"));
         dealRepository.delete(deal);
     }
 }

@@ -8,9 +8,9 @@ import java.util.List;
 
 @Data
 public class Home {
-    private List<HomeCategoryEntity>grid;
-    private List<HomeCategoryEntity>shopByCategories;
-    private List<HomeCategoryEntity>electronicCategories;
-    private List<HomeCategoryEntity>dealCategories;
-    private List<DealEntity>deals;
+    private List<HomeCategory>grid;
+    private List<HomeCategory>shopByCategories;
+    private List<HomeCategory>electronicCategories;
+    private List<HomeCategory>dealCategories;
+    private List<Deal>deals;
 }

@@ -1,6 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
+import com.mygitgor.ecommerce_multivendor.domain.model.Deal;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.DealEntity;
 import com.mygitgor.ecommerce_multivendor.application.service.DealService;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +16,17 @@ public class DealController {
     private final DealService dealService;
 
     @PostMapping
-    public ResponseEntity<DealEntity>createDeals(@RequestBody DealEntity deals)
+    public ResponseEntity<Deal>createDeals(@RequestBody Deal deals)
     {
-        DealEntity createDeals = dealService.createDeal(deals);
+        Deal createDeals = dealService.createDeal(deals);
         return new ResponseEntity<>(deals, HttpStatus.ACCEPTED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<DealEntity>updateDeal(@PathVariable Long id,
-                                                @RequestBody DealEntity deal) throws Exception
+    public ResponseEntity<Deal>updateDeal(@PathVariable Long id,
+                                                @RequestBody Deal deal) throws Exception
     {
-        DealEntity updateDeal = dealService.updateDeal(deal,id);
+        Deal updateDeal = dealService.updateDeal(deal,id);
         return ResponseEntity.ok(deal);
     }
 
