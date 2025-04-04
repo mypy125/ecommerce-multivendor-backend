@@ -4,6 +4,7 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateReviewRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
 import com.mygitgor.ecommerce_multivendor.domain.model.Product;
+import com.mygitgor.ecommerce_multivendor.domain.model.Review;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ReviewEntity;
@@ -25,33 +26,33 @@ public class ReviewController {
     private final ProductService productService;
 
     @GetMapping("/products/{productId}/reviews")
-    public ResponseEntity<List<ReviewEntity>>getReviewsByProductId(@PathVariable Long productId)
+    public ResponseEntity<List<Review>>getReviewsByProductId(@PathVariable Long productId)
     {
-        List<ReviewEntity> reviews = reviewService.getReviewByProductId(productId);
+        List<Review> reviews = reviewService.getReviewByProductId(productId);
         return ResponseEntity.ok(reviews);
     }
 
     @PostMapping("/products/{productId}/reviews")
-    public ResponseEntity<ReviewEntity>writeReview(@RequestBody CreateReviewRequest req,
+    public ResponseEntity<Review>writeReview(@RequestBody CreateReviewRequest req,
                                                    @PathVariable Long productId,
                                                    @RequestHeader("Authorization")
                                                  String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
         Product product = productService.findProductById(productId);
-        ReviewEntity review = reviewService.createReview(req, user,product);
+        Review review = reviewService.createReview(req, user,product);
 
         return ResponseEntity.ok(review);
     }
 
     @PatchMapping("/reviews/{reviewId}")
-    public ResponseEntity<ReviewEntity>updateReview(@RequestBody CreateReviewRequest req,
+    public ResponseEntity<Review>updateReview(@RequestBody CreateReviewRequest req,
                                                     @PathVariable Long reviewId,
                                                     @RequestHeader("Authorization")
                                               String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
-        ReviewEntity review = reviewService.updateReview(
+        Review review = reviewService.updateReview(
                 reviewId, req.getReviewText(),req.getReviewRating(), user.getId()
         );
         return ResponseEntity.ok(review);

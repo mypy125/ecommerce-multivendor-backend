@@ -39,7 +39,7 @@
 		<paypal-sdk-java.version>1.14.0</paypal-sdk-java.version>
 		<com-stripe.version>25.9.0</com-stripe.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
-		<lombok.version>1.18.24</lombok.version>
+		<lombok.version>1.18.30</lombok.version>
 	</properties>
 	<dependencies>
 		<dependency>

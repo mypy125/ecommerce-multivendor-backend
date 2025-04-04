@@ -1,6 +1,9 @@
 package com.mygitgor.ecommerce_multivendor.application.impl;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
+import com.mygitgor.ecommerce_multivendor.domain.model.Wishlist;
+import com.mygitgor.ecommerce_multivendor.domain.repository.WishlistRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.UserEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.WishlistEntity;
@@ -14,28 +17,29 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class WishlistServiceImpl implements WishlistService {
-   private final WishlistJpaRepository wishlistRepository;
+   private final WishlistRepository wishlistRepository;
 
     @Override
-    public WishlistEntity createWishlist(UserEntity user) {
-        WishlistEntity wishlist = new WishlistEntity();
+    public Wishlist createWishlist(User user) {
+        Wishlist wishlist = new Wishlist();
         wishlist.setUser(user);
         return wishlistRepository.save(wishlist);
     }
 
     @Override
-    public WishlistEntity getWishlistByUserId(User user) {
-        Optional<WishlistEntity> wishlist = wishlistRepository.findByUserId(user.getId());
-        return wishlist.orElseGet(() -> createWishlist(user));
+    public Wishlist getWishlistByUserId(User user) {
+        return wishlistRepository.findByUserId(user.getId())
+                .orElseGet(() -> createWishlist(user));
     }
 
     @Override
-    public WishlistEntity addProductToWishlist(User user, ProductEntity product) {
-        WishlistEntity wishlist = getWishlistByUserId(user);
-        if(wishlist.getProducts().contains(product)){
+    public Wishlist addProductToWishlist(User user, Product product) {
+        Wishlist wishlist = getWishlistByUserId(user);
+        if (wishlist.getProducts().contains(product)) {
             wishlist.getProducts().remove(product);
+        } else {
+            wishlist.getProducts().add(product);
         }
-        else wishlist.getProducts().add(product);
         return wishlistRepository.save(wishlist);
     }
 }

@@ -1,6 +1,8 @@
 package com.mygitgor.ecommerce_multivendor.application.service;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateReviewRequest;
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
+import com.mygitgor.ecommerce_multivendor.domain.model.Review;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ReviewEntity;
@@ -8,14 +10,14 @@ import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.Review
 import java.util.List;
 
 public interface ReviewService {
-    ReviewEntity createReview(CreateReviewRequest request,
-                              User user,
-                              ProductEntity product
+    Review createReview(CreateReviewRequest request,
+                        User user,
+                        Product product
     );
 
-    List<ReviewEntity> getReviewByProductId(Long productId);
+    List<Review> getReviewByProductId(Long productId);
 
-    ReviewEntity updateReview(Long reviewId,
+    Review updateReview(Long reviewId,
                               String reviewText,
                               double rating,
                               Long userId
@@ -23,5 +25,5 @@ public interface ReviewService {
 
     void deleteReview(Long reviewId, Long userId) throws Exception;
 
-    ReviewEntity getReviewById(Long reviewId) throws Exception;
+    Review getReviewById(Long reviewId) throws Exception;
 }

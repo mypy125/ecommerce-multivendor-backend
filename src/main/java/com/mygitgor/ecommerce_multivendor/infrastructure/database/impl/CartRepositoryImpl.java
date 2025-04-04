@@ -8,6 +8,8 @@ import com.mygitgor.ecommerce_multivendor.mapper.CartMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class CartRepositoryImpl implements CartRepository {
@@ -15,10 +17,10 @@ public class CartRepositoryImpl implements CartRepository {
     private final CartMapper cartMapper;
 
     @Override
-    public Cart findByUserId(Long userId) {
-        return jpaRepository.findByUserId(userId)
+    public Optional<Cart> findByUserId(Long userId) {
+        return Optional.ofNullable(jpaRepository.findByUserId(userId)
                 .map(cartMapper::toDomain)
-                .orElseThrow(() -> new RuntimeException("Cart not found for userId: " + userId));
+                .orElseThrow(() -> new RuntimeException("Cart not found for userId: " + userId)));
     }
 
     @Override
