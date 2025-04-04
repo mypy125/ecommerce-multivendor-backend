@@ -2,6 +2,7 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateProductRequest;
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
 import com.mygitgor.ecommerce_multivendor.domain.model.Seller;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
@@ -23,20 +24,20 @@ public class SellerProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ProductEntity>>getProductBySellerId(@RequestHeader("Authorization")
+    public ResponseEntity<List<Product>>getProductBySellerId(@RequestHeader("Authorization")
                                                                  String jwt) throws Exception
     {
         Seller seller = sellerService.getSellerProfile(jwt);
-        List<ProductEntity>products=productService.getProductBySellerId(seller.getId());
+        List<Product>products=productService.getProductBySellerId(seller.getId());
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<ProductEntity>createProduct(@RequestBody CreateProductRequest request,
+    public ResponseEntity<Product>createProduct(@RequestBody CreateProductRequest request,
                                                       @RequestHeader("Authorization") String jwt) throws Exception
     {
         Seller seller = sellerService.getSellerProfile(jwt);
-        ProductEntity product = productService.createProduct(request,seller);
+        Product product = productService.createProduct(request,seller);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
@@ -52,9 +53,9 @@ public class SellerProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<ProductEntity>updateProduct(@PathVariable Long productId,
-                                                      @RequestBody ProductEntity product) throws ProductException {
-        ProductEntity updateProduct= productService.updateProduct(productId, product);
+    public ResponseEntity<Product>updateProduct(@PathVariable Long productId,
+                                                      @RequestBody Product product) throws ProductException {
+        Product updateProduct= productService.updateProduct(productId, product);
         return new ResponseEntity<>(updateProduct,HttpStatus.OK);
     }
 }

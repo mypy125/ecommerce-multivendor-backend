@@ -1,13 +1,13 @@
-package com.mygitgor.ecommerce_multivendor.application.service.impl;
+package com.mygitgor.ecommerce_multivendor.application.impl;
 
 import com.mygitgor.ecommerce_multivendor.config.PaymentConfig;
+import com.mygitgor.ecommerce_multivendor.domain.model.PaymentOrder;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.OrderEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.PaymentOrderEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.Order;
+import com.mygitgor.ecommerce_multivendor.domain.repository.OrderRepository;
+import com.mygitgor.ecommerce_multivendor.domain.repository.PaymentOrderRepository;
 import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentOrderStatus;
 import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentStatus;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.PaymentOrderJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.PaymentService;
 import com.paypal.api.payments.*;
 import com.paypal.api.payments.Payment;
@@ -26,16 +26,16 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private final PaymentOrderJpaRepository paymentOrderRepository;
-    private final OrderJpaRepository orderRepository;
+    private final PaymentOrderRepository paymentOrderRepository;
+    private final OrderRepository orderRepository;
     private final PaymentConfig conf;
 
 
     @Override
-    public PaymentOrderEntity createOrder(User user, Set<OrderEntity> orders) {
-        Long amount=orders.stream().mapToLong(OrderEntity::getTotalSellingPrice).sum();
+    public PaymentOrder createOrder(User user, Set<Order> orders) {
+        Long amount = orders.stream().mapToLong(Order::getTotalSellingPrice).sum();
 
-        PaymentOrderEntity paymentOrder= new PaymentOrderEntity();
+        PaymentOrder paymentOrder = new PaymentOrder();
         paymentOrder.setAmount(amount);
         paymentOrder.setUser(user);
         paymentOrder.setOrders(orders);
@@ -43,31 +43,31 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentOrderRepository.save(paymentOrder);
     }
 
+
     @Override
-    public PaymentOrderEntity getPaymentOrderById(Long orderId) throws Exception {
+    public PaymentOrder getPaymentOrderById(Long orderId) throws Exception {
         return paymentOrderRepository.findById(orderId)
-                .orElseThrow(()-> new Exception("payment order not found"));
+                .orElseThrow(() -> new Exception("Payment order not found"));
     }
 
     @Override
-    public PaymentOrderEntity getPaymentOrderByPaymentId(String orderId) throws Exception {
-        PaymentOrderEntity paymentOrder= paymentOrderRepository.findByPaymentLinkId(orderId);
-        if(paymentOrder==null){
-            throw new Exception("payment order not found with payment link id"+orderId);
+    public PaymentOrder getPaymentOrderByPaymentId(String paymentId) throws Exception {
+        PaymentOrder paymentOrder = paymentOrderRepository.findByPaymentLinkId(paymentId);
+        if (paymentOrder == null) {
+            throw new Exception("Payment order not found with payment link id: " + paymentId);
         }
         return paymentOrder;
     }
 
     @Override
-    public Boolean proceedPaymentOrder(PaymentOrderEntity paymentOrder, String paymentId, String paymentLinkId) throws PayPalRESTException {
+    public Boolean proceedPaymentOrder(PaymentOrder paymentOrder, String paymentId, String paymentLinkId) throws PayPalRESTException {
         if (paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING)) {
             APIContext apiContext = new APIContext(conf.getPaypalClientId(), conf.getPaypalClientSecret(), conf.getPaypalMode());
             Payment payment = Payment.get(apiContext, paymentId);
 
-            String status = payment.getState();
-            if (status.equals("approved")) {
-                Set<OrderEntity> orders = paymentOrder.getOrders();
-                for (OrderEntity order : orders) {
+            if ("approved".equals(payment.getState())) {
+                Set<Order> orders = paymentOrder.getOrders();
+                for (Order order : orders) {
                     order.setPaymentStatus(PaymentStatus.COMPILED);
                     orderRepository.save(order);
                 }

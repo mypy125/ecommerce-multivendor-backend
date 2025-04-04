@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.WishlistEntity;
@@ -32,7 +33,7 @@ public class WishlistController {
                                                               @RequestHeader("Authorization")
                                                            String jwt) throws Exception
     {
-        ProductEntity product = productService.findProductById(productId);
+        Product product = productService.findProductById(productId);
         User user = userService.findByJwtToken(jwt);
         WishlistEntity updateWishlist = wishlistService.addProductToWishlist(user,product);
         return ResponseEntity.ok(updateWishlist);

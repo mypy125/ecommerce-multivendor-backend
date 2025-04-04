@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce_multivendor.application.service.impl;
+package com.mygitgor.ecommerce_multivendor.application.impl;
 
 import com.mygitgor.ecommerce_multivendor.infrastructure.security.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.LoginRequest;

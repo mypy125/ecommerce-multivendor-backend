@@ -4,6 +4,7 @@ import com.mygitgor.ecommerce_multivendor.api.DTOs.response.PaymentLinkResponse;
 import com.mygitgor.ecommerce_multivendor.application.service.*;
 import com.mygitgor.ecommerce_multivendor.domain.model.*;
 import com.mygitgor.ecommerce_multivendor.domain.model.costant.PaymentMethod;
+import com.mygitgor.ecommerce_multivendor.domain.repository.PaymentOrderRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.*;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.PaymentOrderJpaRepository;
 import com.paypal.api.payments.Links;
@@ -26,7 +27,7 @@ public class OrderController {
     private final SellerService sellerService;
     private final SellerReportService sellerReportService;
     private final PaymentService paymentService;
-    private final PaymentOrderJpaRepository paymentOrderRepository;
+    private final PaymentOrderRepository paymentOrderRepository;
 
     @PostMapping
     public ResponseEntity<PaymentLinkResponse> createOrderHandler(@RequestBody Address shippingAddress,

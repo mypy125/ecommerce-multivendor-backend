@@ -3,6 +3,7 @@ package com.mygitgor.ecommerce_multivendor.api.controller;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateReviewRequest;
 import com.mygitgor.ecommerce_multivendor.api.DTOs.response.ApiResponse;
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
 import com.mygitgor.ecommerce_multivendor.domain.model.User;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ReviewEntity;
@@ -37,7 +38,7 @@ public class ReviewController {
                                                  String jwt) throws Exception
     {
         User user = userService.findByJwtToken(jwt);
-        ProductEntity product = productService.findProductById(productId);
+        Product product = productService.findProductById(productId);
         ReviewEntity review = reviewService.createReview(req, user,product);
 
         return ResponseEntity.ok(review);

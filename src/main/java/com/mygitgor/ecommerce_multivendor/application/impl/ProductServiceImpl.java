@@ -1,12 +1,13 @@
-package com.mygitgor.ecommerce_multivendor.application.service.impl;
+package com.mygitgor.ecommerce_multivendor.application.impl;
 
 import com.mygitgor.ecommerce_multivendor.api.DTOs.request.CreateProductRequest;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CategoryEntity;
+import com.mygitgor.ecommerce_multivendor.domain.model.Category;
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
+import com.mygitgor.ecommerce_multivendor.domain.model.Seller;
+import com.mygitgor.ecommerce_multivendor.domain.repository.CategoryRepository;
+import com.mygitgor.ecommerce_multivendor.domain.repository.ProductRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.SellerEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.CategoryJpaRepository;
-import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.ProductJpaRepository;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
@@ -25,31 +26,31 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductJpaRepository productRepository;
-    private final CategoryJpaRepository categoryRepository;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
-    public ProductEntity createProduct(CreateProductRequest req, SellerEntity seller) throws IllegalAccessException {
-        CategoryEntity category1=categoryRepository.findByCategoryId(req.getCategory());
+    public Product createProduct(CreateProductRequest req, Seller seller) throws IllegalAccessException {
+        Category category1=categoryRepository.findByCategoryId(req.getCategory());
         if(category1==null){
-            CategoryEntity category = new CategoryEntity();
+            Category category = new Category();
             category.setCategoryId(req.getCategory());
             category.setLevel(1);
             category1=categoryRepository.save(category);
         }
 
-        CategoryEntity category2=categoryRepository.findByCategoryId(req.getCategory2());
+        Category category2=categoryRepository.findByCategoryId(req.getCategory2());
         if(category2==null){
-            CategoryEntity category = new CategoryEntity();
+            Category category = new Category();
             category.setCategoryId(req.getCategory2());
             category.setLevel(2);
             category.setParentCategory(category1);
             category2=categoryRepository.save(category);
         }
 
-        CategoryEntity category3=categoryRepository.findByCategoryId(req.getCategory3());
+        Category category3=categoryRepository.findByCategoryId(req.getCategory3());
         if(category3==null){
-            CategoryEntity category = new CategoryEntity();
+            Category category = new Category();
             category.setCategoryId(req.getCategory3());
             category.setLevel(3);
             category.setParentCategory(category2);
@@ -58,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
         int discountPercentage=calculateDiscountPercentage(req.getMrpPrice(), req.getSellingPrice());
 
-        ProductEntity product = new ProductEntity();
+        Product product = new Product();
         product.setSeller(seller);
         product.setCategory(category3);
         product.setDescription(req.getDescription());
@@ -85,30 +86,30 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) throws ProductException {
-        ProductEntity product = findProductById(productId);
+        Product product = findProductById(productId);
         productRepository.delete(product);
     }
 
     @Override
-    public ProductEntity updateProduct(Long productId, ProductEntity product) throws ProductException {
+    public Product updateProduct(Long productId, Product product) throws ProductException {
         findProductById(productId);
         product.setId(productId);
         return productRepository.save(product);
     }
 
     @Override
-    public ProductEntity findProductById(Long productId) throws ProductException {
+    public Product findProductById(Long productId) throws ProductException {
         return productRepository.findById(productId)
                 .orElseThrow(()-> new ProductException("product not found with id "+productId));
     }
 
     @Override
-    public List<ProductEntity> searchProduct(String query) {
+    public List<Product> searchProduct(String query) {
         return productRepository.searchProduct(query);
     }
 
     @Override
-    public Page<ProductEntity> getAllProducts(String category,
+    public Page<Product> getAllProducts(String category,
                                               String brand,
                                               String colors,
                                               String sizes,
@@ -123,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
         Specification<ProductEntity> spec=(root, query, criteriaBuilder)->{
             List<Predicate>predicates=new ArrayList<>();
             if(category != null){
-                Join<ProductEntity, CategoryEntity>categoryJoin=root.join("category");
+                Join<Product, Category>categoryJoin=root.join("category");
                 predicates.add(criteriaBuilder.equal(categoryJoin.get("categoryId"),category));
             }
 
@@ -164,7 +165,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductEntity> getProductBySellerId(Long sellerId) {
+    public List<Product> getProductBySellerId(Long sellerId) {
         return productRepository.findBySellerId(sellerId);
     }
 }

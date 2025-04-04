@@ -19,7 +19,7 @@ public class HomeCategoryController {
     private final HomeService homeService;
 
     @PostMapping("/home/categories")
-    public ResponseEntity<Home>createHomeCategory(@RequestBody List<HomeCategoryEntity> homeCategories)
+    public ResponseEntity<Home>createHomeCategory(@RequestBody List<HomeCategory> homeCategories)
     {
         List<HomeCategory>categories = homeCategoryService.createCategories(homeCategories);
         Home home = homeService.createHomePageData(categories);

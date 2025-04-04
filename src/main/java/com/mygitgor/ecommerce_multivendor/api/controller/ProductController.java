@@ -1,5 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.api.controller;
 
+import com.mygitgor.ecommerce_multivendor.domain.model.Product;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.ProductEntity;
 import com.mygitgor.ecommerce_multivendor.api.exception.ProductException;
 import com.mygitgor.ecommerce_multivendor.application.service.ProductService;
@@ -18,9 +19,9 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductEntity>getProductById(@PathVariable Long productId) throws ProductException {
+    public ResponseEntity<Product>getProductById(@PathVariable Long productId) throws ProductException {
         try{
-            ProductEntity product = productService.findProductById(productId);
+            Product product = productService.findProductById(productId);
             return new ResponseEntity<>(product, HttpStatus.OK);
         }catch (ProductException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -29,13 +30,13 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductEntity>>searchProduct(@RequestParam(required = false) String query) throws ProductException {
-        List<ProductEntity> products = productService.searchProduct(query);
+    public ResponseEntity<List<Product>>searchProduct(@RequestParam(required = false) String query) throws ProductException {
+        List<Product> products = productService.searchProduct(query);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping()
-    public ResponseEntity<Page<ProductEntity>>getAllProducts(@RequestParam(required = false) String category,
+    public ResponseEntity<Page<Product>>getAllProducts(@RequestParam(required = false) String category,
                                                              @RequestParam(required = false) String brand,
                                                              @RequestParam(required = false) String color,
                                                              @RequestParam(required = false) String size,

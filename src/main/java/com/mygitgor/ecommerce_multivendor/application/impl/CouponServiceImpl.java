@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce_multivendor.application.service.impl;
+package com.mygitgor.ecommerce_multivendor.application.impl;
 
 import com.mygitgor.ecommerce_multivendor.domain.model.Cart;
 import com.mygitgor.ecommerce_multivendor.domain.model.Coupon;
@@ -77,7 +77,7 @@ public class CouponServiceImpl implements CouponService {
     @Override
     public Coupon findCouponById(Long id) throws Exception {
         return couponRepository.findById(id).orElseThrow(() ->
-                new Exception("Coupon not found"));
+                new Exception("Coupon not found whit id "+id));
     }
 
     @Override

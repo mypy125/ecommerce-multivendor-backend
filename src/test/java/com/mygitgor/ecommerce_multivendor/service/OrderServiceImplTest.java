@@ -4,7 +4,7 @@ import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.*;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.AddressJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderItemJpaRepository;
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.jpa.OrderJpaRepository;
-import com.mygitgor.ecommerce_multivendor.application.service.impl.OrderServiceImpl;
+import com.mygitgor.ecommerce_multivendor.application.impl.OrderServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

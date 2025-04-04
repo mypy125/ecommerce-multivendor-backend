@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce_multivendor.application.service.impl;
+package com.mygitgor.ecommerce_multivendor.application.impl;
 
 import com.mygitgor.ecommerce_multivendor.domain.model.*;
 import com.mygitgor.ecommerce_multivendor.domain.model.costant.OrderStatus;

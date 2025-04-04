@@ -7,6 +7,7 @@ import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CartEn
 import com.mygitgor.ecommerce_multivendor.infrastructure.database.entitiy.CouponEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CouponService {
     Cart applyCoupon(String code, double orderValue, User user) throws Exception;
