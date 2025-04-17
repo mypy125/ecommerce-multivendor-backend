@@ -22,7 +22,7 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public Wishlist getWishlistByUserId(User user) {
-        Wishlist wishlist = wishlistRepository.findByUsersId(user.getId());
+        Wishlist wishlist = wishlistRepository.findByUserId(user.getId());
         if(wishlist==null){
             wishlist=createWishlist(user);
         }

@@ -27,7 +27,7 @@ public class Seller extends BasePerson {
     @OneToOne(cascade = CascadeType.ALL)
     private Address pickupAddress = new Address();
 
-    private String GSTIN;
+    private String NDS;
 
     private boolean isEmailVerified = false;
 
