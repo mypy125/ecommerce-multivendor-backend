@@ -1,5 +1,7 @@
 package com.mygitgor.ecommerce_multivendor.config;
 
+import com.mygitgor.ecommerce_multivendor.config.jwt.JwtProps;
+import com.mygitgor.ecommerce_multivendor.config.jwt.JwtTokenValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +23,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class AppConfig {
+public class SecurityConfig {
     private final JwtProps jwtProps;
 
     @Bean
