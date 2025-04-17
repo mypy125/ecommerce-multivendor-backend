@@ -1,4 +1,4 @@
-package com.mygitgor.ecommerce_multivendor.config;
+package com.mygitgor.ecommerce_multivendor.config.jwt;
 
 
 import io.jsonwebtoken.Claims;

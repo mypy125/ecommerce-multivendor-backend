@@ -1,6 +1,6 @@
 package com.mygitgor.ecommerce_multivendor.service.impl;
 
-import com.mygitgor.ecommerce_multivendor.config.JwtProvider;
+import com.mygitgor.ecommerce_multivendor.config.jwt.JwtProvider;
 import com.mygitgor.ecommerce_multivendor.domain.User;
 import com.mygitgor.ecommerce_multivendor.repository.UserRepository;
 import com.mygitgor.ecommerce_multivendor.service.UserService;
